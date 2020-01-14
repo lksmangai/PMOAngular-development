@@ -1,0 +1,113 @@
+.username-font {
+  font-size: 22px;
+}
+.userpost-font {
+  color: #90949c;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.profile-img {
+  border-radius: 4px;
+  border: 1px solid #dfe0e4;
+  padding: 5px;
+}
+.stamp {
+  min-width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.card-table tr td:first-child {
+  padding-left: 0.8rem;
+}
+.table td {
+  padding: 0.3rem;
+}
+.nav-tabs .nav-link {
+  display: inline-block;
+}
+.nav-tabs .nav-link {
+  font-size: 16px;
+  padding: 0;
+}
+.nav-tabs .nav-link.active {
+  border-bottom: 2px solid #00274e;
+  color: #00274e;
+}
+.tag {
+  display: block;
+  padding: 0;
+  height: 25px;
+  width: 70px;
+  text-align: center;
+  line-height: 23px;
+  border: 1px solid #ced0d4;
+}
+.tag-secondary {
+  color: #4b4f56;
+  background-color: transparent;
+}
+.tag-primary {
+  color: #ffffff;
+  background-color: #00274e;
+}
+.mright-5 {
+  margin-right: 3rem;
+}
+.post-name {
+  font-size: 17px;
+  color: #333;
+  font-weight: 700px;
+}
+.time-date {
+  font-size: 12px;
+  color: #999;
+  font-weight: 400px;
+}
+.like-comment {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #ebebeb;
+  background-color: #fcfcfc;
+  padding: 0.5rem 0.5rem 0.5rem 73px;
+}
+.comment-text {
+  font-size: 15px;
+  color: #222222;
+}
+.comment-date {
+  font-size: 13px;
+  color: #777;
+  font-weight: 400px;
+}
+.comment-img {
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fcfcfc;
+}
+.comment-name {
+  font-size: 14px;
+  color: #333;
+  font-weight: 700px;
+}
+.send-btn {
+  height: 32px;
+  font-size: 15px;
+  line-height: 0.84615385;
+}
+.send-name{
+    font-size: 15px; vertical-align: 0px;
+}
+.chat-name{
+    font-size: 16px;
+    font-weight: 600;
+}
+.w-85{
+    width: 88.7%;
+}
+.font-600{
+  font-weight: 600;
+}
+.dropdown-toggle::after{
+  display: none;
+}

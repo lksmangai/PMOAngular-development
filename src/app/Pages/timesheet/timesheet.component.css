@@ -1,0 +1,92 @@
+.k-nav-current > .k-link span + span {
+  max-width: 200px;
+}
+
+#team-schedule {
+  /* background: url('../../../assets/img/team-schedule.png') transparent no-repeat; */
+  height: 15px;
+  position: relative;
+}
+
+#people {
+  /* background: url('../../../assets/img/scheduler-people.png') no-repeat; */
+  width: 345px;
+  height: 115px;
+  position: absolute;
+  right: 0;
+}
+#alex {
+  position: absolute;
+  left: 4px;
+  top: 0;
+}
+#bob {
+  position: absolute;
+  left: 119px;
+  top: 0;
+}
+#charlie {
+  position: absolute;
+  left: 234px;
+  top: 0;
+}
+
+.flex-box {
+  display: flex;
+}
+
+/* Date & Hours block */
+.time-card {
+  border: 1px solid #b7b7b7;
+  cursor: pointer;
+}
+.time-card.active h4,
+.time-card.active h3 {
+  color: #000000;
+}
+.time-card.active {
+  border: 1px solid #707070;
+  background-color: #f1f1f1;
+}
+.time-card h4 {
+  color: #858585;
+}
+.time-card h3 {
+  color: #9c9c9d;
+}
+
+.flexrow {
+  -ms-flex-direction: row;
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-left: 1.7rem;
+}
+.project-title{
+    font-size: 22px;
+    font-weight: 600;
+    color: #000000;
+}
+.task-title{
+    font-size: 17px;
+    color: #000000;
+    font-weight: 500;
+    margin-left: 10px;
+}
+.date{
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .flexrow {
+    -ms-flex-direction: column;
+    flex-direction: column;
+    display: flex;
+    text-align: left;
+    margin-left: 0;
+  }
+  .flex-box {
+    flex-direction: column;
+  }
+}

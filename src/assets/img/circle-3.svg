@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42">
+  <g id="Group_315" data-name="Group 315" transform="translate(-9.637 -14.193)">
+    <path id="circle" d="M29,8A21,21,0,1,0,50,29,21,21,0,0,0,29,8Z" transform="translate(1.637 6.193)" fill="#fff"/>
+    <path id="bolt" d="M15.226,8.235H9.286l2.193-6.681A1.24,1.24,0,0,0,10.284,0H2.872A1.237,1.237,0,0,0,1.647,1.071L0,13.424a1.238,1.238,0,0,0,1.225,1.4h6.11L4.962,24.835a1.234,1.234,0,0,0,2.27.9l9.059-15.647A1.233,1.233,0,0,0,15.226,8.235Z" transform="translate(24.602 23.445)" fill="#5856d6"/>
+  </g>
+</svg>

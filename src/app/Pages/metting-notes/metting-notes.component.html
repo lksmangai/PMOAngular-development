@@ -1,0 +1,48 @@
+<div class="main-wrapper">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">Meeting Notes</h4>
+        </div>
+        <div class="card-body p-1">
+          <div class="d-block w-100 ">
+            <button
+              class="btn btn-primary btn-sm float-right mb-2"
+              data-toggle="collapse"
+              data-target="#notes"
+            >
+              Add New
+            </button>
+          </div>
+          <div class="collapse" id="notes">
+            <div id="example">
+              <textarea
+                id="editor"
+                rows="10"
+                cols="30"
+                style="height:440px"
+                aria-label="editor"
+              >
+              </textarea>
+            </div>
+          </div>
+          <kendo-grid [height]="410" class="w-100 mt-3">
+            <kendo-grid-column field="Date" title="Date"> </kendo-grid-column>
+            <kendo-grid-column field="Project Name" title="Project Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="Created By" title="Created By">
+            </kendo-grid-column>
+            <kendo-grid-column field="Created By" title="Description">
+            </kendo-grid-column>
+            <kendo-grid-column field="" title="">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <i class="fa fa-sticky-note-o"></i>
+              </ng-template>
+            </kendo-grid-column>
+          </kendo-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="container">
+  <h3>Create Risk</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          kendoTextBox
+          class="w-100"
+          formControlName="projectName"
+        />
+        <div
+          *ngIf="
+            editForm.get('projectName').invalid &&
+            (editForm.get('projectName').dirty ||
+              editForm.get('projectName').touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get('projectName').errors.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Description</label>
+        <textarea
+          class="w-100"
+          kendoTextArea
+          formControlName="description"
+        ></textarea>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Risk Type</label>
+        <input
+          type="text"
+          kendoTextBox
+          class="w-100"
+          formControlName="risktype"
+        />
+        <div
+          *ngIf="
+            editForm.get('risktype').invalid &&
+            (editForm.get('risktype').dirty || editForm.get('risktype').touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get('risktype').errors.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Risk Impact</label>
+        <input
+          type="text"
+          kendoTextBox
+          class="w-100"
+          formControlName="riskimpact"
+        />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Risk Probability</label>
+        <input
+          type="text"
+          kendoTextBox
+          class="w-100"
+          formControlName="riskprobability"
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Project Vertical</label>
+        <kendo-dropdownlist
+          [data]="projectVertical"
+          class="w-100"
+          [valuePrimitive]="true"
+          [textField]="'name'"
+          [valueField]="'id'"
+          class="w-100"
+          formControlName="projectVertical"
+        >
+        </kendo-dropdownlist>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" [formGroup]="editForm">
+        <label class="form-label">Priority</label>
+        <kendo-dropdownlist
+          [data]="opportunityPriorityId"
+          class="w-100"
+          [valuePrimitive]="true"
+          [textField]="'name'"
+          [valueField]="'id'"
+          class="w-100"
+          formControlName="opportunityPriorityId"
+        >
+        </kendo-dropdownlist>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="d-block border-top w-100 p-2"
+    style="
+              bottom: 0 !important;
+              position: absolute;
+              right: 0;
+          "
+  >
+    <div class="float-right">
+      <button
+        type="button"
+        class="btn btn-secondary mr-3"
+        (click)="closerisk()"
+      >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="projectSave()">
+        Save
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,450 @@
+a:hover {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.pointer {
+  cursor: pointer;
+}
+.main-header {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000000;
+}
+.main-wrapper {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.card-one h2,
+.card-two h2,
+.card-three h2,
+.card-four h2,
+.card-five h2 {
+  font-size: 32px;
+  color: #000000;
+}
+.card-one {
+  border: 1px solid #aa6deb !important;
+}
+.card-one p {
+  color: #aa6deb;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.card-two {
+  border: 1px solid #876d40 !important;
+}
+.card-two p {
+  color: #876d40;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.card-three {
+  border: 1px solid #6ba8de !important;
+}
+.card-three p {
+  color: #6ba8de;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.card-four {
+  border: 1px solid #00887a !important;
+}
+.card-four p {
+  color: #00887a;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.card-five {
+  border: 1px solid #9f4f48 !important;
+}
+.card-five p {
+  color: #9f4f48;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.progress-sm,
+.progress-sm .progress-bar {
+  height: 0.5rem;
+}
+.progress {
+  position: relative;
+}
+.progress {
+  display: -ms-flexbox;
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  font-size: 0.703125rem;
+  background-color: #e9ecef;
+  border-radius: 3px;
+}
+.task h2 {
+  color: #000000;
+  font-weight: bold;
+}
+.taskcard-1 h4 {
+  color: #6ba8de;
+  font-size: 16px;
+  font-weight: bold;
+}
+.taskcard-1 .card {
+  background-color: #dceefe;
+  border: 1px solid #6ba8de;
+}
+.taskcard-2 h4 {
+  color: #9f4f48;
+  font-size: 16px;
+  font-weight: bold;
+}
+.taskcard-2 .card {
+  background-color: #fcd3e1;
+  border: 1px solid #9f4f48;
+}
+.taskcard-3 h4 {
+  color: #340167;
+  font-size: 16px;
+  font-weight: bold;
+}
+.taskcard-3 .card {
+  background-color: #e4cff9;
+  border: 1px solid #340167;
+}
+.taskcard-4 h4 {
+  color: #00887a;
+  font-size: 16px;
+  font-weight: bold;
+}
+.taskcard-4 .card {
+  background-color: #bfefea;
+  border: 1px solid #00887a;
+}
+.progress-bg {
+  background-color: #6ba8de !important;
+}
+.hold-bg {
+  background-color: #9f4f48 !important;
+}
+.pending-bg {
+  background-color: #340167 !important;
+}
+.complete-bg {
+  background-color: #00887a !important;
+}
+.hours p {
+  color: #a3a1fb;
+}
+.allocate p {
+  color: #ff8373;
+}
+.utilize p {
+  color: #feb407;
+}
+.available p {
+  color: #0ac6fb;
+}
+.hours h4,
+.allocate h4,
+.utilize h4,
+.available h4 {
+  font-size: 20px;
+  color: #000000;
+}
+.card-title {
+  font-size: 25px;
+  font-weight: 600 !important;
+  color: #000000;
+}
+.table-padding .table td {
+  padding: 7px;
+}
+.project-title {
+  font-size: 15px;
+  font-weight: 500px;
+  color: #000000;
+}
+.square {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  background-color: #f5f5f5;
+  vertical-align: middle;
+}
+.bg-darkyellow {
+  background-color: #b4a532;
+}
+.bg-darkgreen {
+  background-color: #28af51;
+}
+.bg-darkred {
+  background-color: #ff0000;
+}
+.bg-lightgray {
+  background-color: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #e8e8e8;
+}
+.badge-leafgreen {
+  background-color: #159588;
+}
+.badge-orange {
+  background-color: #f37c22;
+}
+.badge-violet {
+  background-color: #9577cb;
+}
+.badge-blueprimary {
+  background-color: #157ffb;
+}
+.badge-black {
+  background-color: #000000;
+}
+.text-strike {
+  text-decoration: line-through;
+}
+.project-createtitle {
+  font-size: 24px;
+  color: #000000 !important;
+  font-weight: 600;
+}
+.project-desc {
+  font-size: 18px;
+  color: #2d2f31;
+}
+.project-type {
+  font-size: 17px;
+  color: #495057;
+  font-weight: 200;
+}
+
+.button-primary .create-project {
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background-color: #007aff;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.button-primary .btn-circle {
+  position: absolute;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: #ffffff;
+  border: 3px solid #007aff;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  color: #007aff;
+  text-align: center;
+  line-height: 25px;
+}
+
+.button-orange .create-project {
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background-color: #ff9500;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.button-orange .btn-circle {
+  position: absolute;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: #ffffff;
+  border: 3px solid #ff9500;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  color: #ff9500;
+  text-align: center;
+  line-height: 25px;
+}
+
+.button-violet .create-project {
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background-color: #5856d6;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.button-violet .btn-circle {
+  position: absolute;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: #ffffff;
+  border: 3px solid #5856d6;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  color: #5856d6;
+  text-align: center;
+  line-height: 25px;
+}
+
+.button-pink .create-project {
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  background-color: #ff2d55;
+  border-radius: 4px;
+  border: none;
+  color: #ffffff;
+}
+.button-pink .btn-circle {
+  position: absolute;
+  display: block;
+  height: 30px;
+  width: 30px;
+  background-color: #ffffff;
+  border: 3px solid #ff2d55;
+  top: -10px;
+  right: -10px;
+  border-radius: 50%;
+  color: #ff2d55;
+  text-align: center;
+  line-height: 25px;
+}
+.form-label {
+  font-size: 15px;
+  color: #000000;
+}
+.border-dashed {
+  border: 1px dashed #9898ae;
+  background-color: transparent;
+}
+.btn-orange {
+  background-color: #fb8a58 !important;
+  color: #ffffff !important;
+}
+.k-date .k-datepicker .k-picker-wrap {
+  border-color: transparent !important;
+  width: 135px;
+}
+.k-date .k-dateinput-wrap .k-input {
+  padding-left: 0 !important;
+}
+.table-badge {
+  display: inline-block;
+  height: 30px;
+  width: 100px;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 4px 4px 0 0;
+  color: #fff;
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2) inset;
+  cursor: context-menu;
+}
+.number-circle {
+  height: 45px;
+  width: 45px;
+  display: block;
+  text-align: center;
+  line-height: 45px;
+  margin: 0 auto;
+  border-radius: 50%;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.status-md {
+  height: 1rem !important;
+  width: 1rem !important;
+}
+
+/* --------------------------Side nav bar css START-------------------------*/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgb(255, 255, 255);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  z-index: 10;
+}
+#overlay {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow-x: hidden;
+  /* transition: 0.5s; */
+  padding-top: 60px;
+  z-index: 10;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+#sidenav {
+  display: block;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  left: -25px;
+  font-size: 22px;
+  background-color: #007aff;
+  color: #ffffff !important;
+}
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+/* --------------------------END-------------------------*/
+.dash-cardh {
+  height: 220px;
+}
+.w-80 {
+  width: 80%;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* Dropdown Shadow Class*/
+.allow-focus {
+  box-shadow: 0px 7px 21px rgba(0, 0, 0, 0.1);
+}
+
+/* Input type text close button */
+input::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button !important;
+  cursor: pointer;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}

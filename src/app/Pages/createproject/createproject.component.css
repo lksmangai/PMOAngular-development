@@ -1,0 +1,116 @@
+.card-header h4{
+    font-size: 22px;
+    color: #000000;
+}
+/* File upload kendo css */
+:host.k-upload .k-upload-button {
+    min-width: 7em;
+    margin: 0 auto !important;
+}
+.label {
+    display: block;
+    font-weight: bold;
+    text-indent: 8px;
+    color: #656565;
+  }
+  .creator{
+      font-size: 15px;
+      color: #495057;
+  }
+  .font-15{
+      font-size: 15px;
+  }
+  .avatar-list-stacked .avatar {
+    margin-right: -.5em;
+    transition: all 0.3s;
+    }
+    .avatar-list-stacked .avatar:hover {
+        margin-right: .3em;
+    }
+
+
+/* Risk navbar start */
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #E7762C;
+    background-color: #fff;
+    border-color: #CED4DA #CED4DA #fff #CED4DA;
+    font-size: 16px;
+    font-weight: 600;
+}
+.tab-content > .active{
+    border-left:1px solid #CED4DA;
+    border-right:1px solid #CED4DA;
+    border-bottom:1px solid #CED4DA;
+}
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #9AA0AC;
+}
+.nav-tabs {
+    border-bottom: 1px solid #CED4DA;
+}
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+
+/* Risk navbar end */
+.option:hover{
+    text-decoration: underline;
+}
+@media (min-width: 576px)
+{
+    .modal-dialog {
+    max-width: 1000px;
+    margin: 1.75rem auto;
+}
+}
+.hr-text{
+   line-height: 1em;
+   position: relative;
+   outline: 0;
+   border: 0;
+   color: #000000;
+   text-align: center;
+   height: 1.5em;
+   opacity: 0.5;
+}
+.hr-text:before {
+       content:'';
+       position: absolute;
+        left: 0;
+        top:50%;
+        width:100%;
+        height: 1px;
+    }
+    .hr-text:after {
+        content:attr(data-content);
+        position: relative;
+        display: inline-block;
+        color: #000000;
+        padding: 0.5em;
+        line-height: 1.5em;
+        color: #818078;
+        background-color: #fcfcfa;
+    } 
+.line{
+    position: relative;
+}
+.line-center{
+    position: absolute;
+    display: block;
+    top: -11px;
+    color: #818078;
+    background-color: #fff;
+    left: 45%;
+    padding: 0 10px;
+}
+.padding-lr{
+    padding: 10px;
+    min-width: max-content;
+}

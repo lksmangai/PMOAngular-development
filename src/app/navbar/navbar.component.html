@@ -1,0 +1,292 @@
+<div class="header py-4">
+  <div class="container">
+    <div class="d-flex">
+      <a routerLink="/dashboard" class="header-brand">
+        <img src="assets/img/logo.png" class="header-brand-img" alt="tabler logo" />
+      </a>
+
+      <div class="d-flex order-lg-2 ml-auto top-bar">
+        <button class="btn btn-outline-primary btn-sm mr-3">Quick wins</button>
+        <!-- <a routerLink="/feeds" routerLinkActive="active">
+          <i class="fa fa-feed fa-lg mt-3 mr-3"></i>
+        </a> -->
+        <!-- <div class="navbar-custom-menu mt-2">
+          <ul class="nav navbar-nav">
+            <li class="dropdown d-none d-md-flex">
+              <a href="#" class="nav-link icon" data-toggle="dropdown">
+                <i class="fe fe-bell fa-lg"></i>
+                <span class="nav-unread"></span>
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left"
+              >
+                <li class="noti-header">You have 4 messages</li>
+                <li>
+                  <ul class="menu">
+                    <li>
+                      <a>
+                        <div class="d-flex flex-row">
+                          <div class="col-auto d-block">
+                            <span class="avatar avatar-md d-block">
+                              <img
+                                src="assets/img/2.jpg"
+                                alt=""
+                                class="avatar avatar-md d-block"
+                              />
+                            </span>
+                          </div>
+                          <div class="col d-block">
+                            <div style="display: block;">
+                              <a
+                                href="javascript:void(0)"
+                                class="text-inherit text-wrap"
+                                >AmandaHunt has sent you a Invitaion.</a
+                              >
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x"
+                              >03/03/2019 0.8.41 PM</small
+                            >
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a>
+                        <div class="d-flex flex-row">
+                          <div class="col-auto d-block">
+                            <span class="avatar avatar-md d-block">
+                              <img
+                                src="assets/img/2.jpg"
+                                alt=""
+                                class="avatar avatar-md d-block"
+                              />
+                            </span>
+                          </div>
+                          <div class="col d-block">
+                            <div style="display: block;">
+                              <a
+                                href="javascript:void(0)"
+                                class="text-inherit text-wrap"
+                                >Amanda Hunt has sent you a Invitaion.</a
+                              >
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x"
+                              >03/03/2019 0.8.41 PM</small
+                            >
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <div class="d-flex flex-row">
+                          <div class="col-auto d-block">
+                            <span class="avatar avatar-md d-block">
+                              <img
+                                src="assets/img/3.jpg"
+                                alt=""
+                                class="avatar avatar-md d-block"
+                              />
+                            </span>
+                          </div>
+                          <div class="col d-block">
+                            <div style="display: block;">
+                              <a
+                                href="javascript:void(0)"
+                                class="text-inherit text-wrap"
+                                >Amanda Hunt has sent you a Invitaion.</a
+                              >
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x"
+                              >03/03/2019 0.8.41 PM</small
+                            >
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <div class="d-flex flex-row">
+                          <div class="col-auto d-block">
+                            <span class="avatar avatar-md d-block">
+                              <img
+                                src="assets/img/2.jpg"
+                                alt=""
+                                class="avatar avatar-md d-block"
+                              />
+                            </span>
+                          </div>
+                          <div class="col d-block">
+                            <div style="display: block;">
+                              <a
+                                href="javascript:void(0)"
+                                class="text-inherit text-wrap"
+                                >Amanda Hunt has sent you a Invitaion.</a
+                              >
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x"
+                              >03/03/2019 0.8.41 PM</small
+                            >
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a>
+                        <div class="d-flex flex-row">
+                          <div class="col-auto d-block">
+                            <span class="avatar avatar-md d-block">
+                              <img
+                                src="assets/img/1.jpg"
+                                alt=""
+                                class="avatar avatar-md d-block"
+                              />
+                            </span>
+                          </div>
+                          <div class="col d-block">
+                            <div style="display: block;">
+                              <a
+                                href="javascript:void(0)"
+                                class="text-inherit text-wrap"
+                                >Amanda Hunt has sent you a Invitaion.</a
+                              >
+                            </div>
+                            <small
+                              class="d-block item-except text-sm text-muted h-1x"
+                              >03/03/2019 0.8.41 PM</small
+                            >
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="noti-footer">See All Messages</li>
+              </ul>
+            </li>
+          </ul>
+        </div> -->
+
+        <div class="dropdown">
+          <a class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar">
+              <img src="assets/img/john.png" class="avatar" alt="" />
+            </span>
+            <span class="ml-2 d-flex flex-column">
+              <span class="text-muted mb-1">
+                Hi,
+              </span>
+              <span class="text-white">{{ activeUser.firstName }} {{ activeUser.lastName }}</span>
+              <!-- <span *ngIf="activeEmp">
+                <small class="text-muted d-block mt-1">{{
+                  activeEmp.jobTitle
+                }}</small>
+              </span> -->
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <!-- <a class="dropdown-item">
+              <i class="dropdown-icon fe fe-user"></i> Profile
+            </a>
+            <a class="dropdown-item">
+              <i class="dropdown-icon fe fe-settings"></i> Settings
+            </a>
+            <a class="dropdown-item">
+              <span class="float-right"><span class="badge badge-primary">6</span></span>
+              <i class="dropdown-icon fe fe-mail"></i> Inbox
+            </a>
+            <a class="dropdown-item">
+              <i class="dropdown-icon fe fe-send"></i> Message
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item">
+              <i class="dropdown-icon fe fe-help-circle"></i> Need help?
+            </a> -->
+            <a class="dropdown-item" (click)="signOut()">
+              <i class="dropdown-icon fe fe-log-out"></i> Sign out
+            </a>
+          </div>
+        </div>
+      </div>
+      <a class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
+        <span class="header-toggler-icon"></span>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="header-bottom collapse d-lg-flex p-0" id="headerMenuCollapse">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8 order-lg-first">
+        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+          <!-- <li class="nav-item">
+            <a routerLinkActive="active" class="nav-link"
+              ><i class="fa fa-dashboard"></i> Boards</a
+            >
+          </li> -->
+          <li class="nav-item">
+            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link"><i class="fa fa-home"></i> My
+              Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/projects" routerLinkActive="active" class="nav-link"><i class="fa fa-github"></i>
+              Projects</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/team" routerLinkActive="active" class="nav-link"><i class="fa fa-users"></i> Team</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/task" routerLinkActive="active" class="nav-link"><i class="fa fa-list"></i> Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/timesheet" routerLinkActive="active" class="nav-link"><i class="fa fa-clock-o"></i>
+              Timesheet</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/riskpage" routerLinkActive="active" class="nav-link"><i class="fa fa-file-text-o"></i>
+              Risk</a>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="col-lg-4 d-flex justify-content-end">
+        <div class="input-group w-100">
+          <input type="text" class="form-control" style="width:40%;" placeholder="Search" />
+          <select class="custom-select" name="category_name">
+            <option value="">All type</option>
+            <option value="codex">Projects</option>
+            <option value="comments">Team</option>
+            <option value="content">Tasks</option>
+            <option value="timesheet">Timesheet</option>
+          </select>
+          <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <ul class="list-inline float-right mb-0">
+          <li class="list-inline-item mr-5">
+            <span>
+              <img src="assets/img/lock.svg" alt="" />
+            </span>
+          </li>
+          <li class="list-inline-item mr-5">
+            <span>
+              <img src="assets/img/hide.svg" alt="" />
+            </span>
+          </li>
+          <li class="list-inline-item">
+            <span>
+              <img src="assets/img/file.svg" alt="" />
+            </span>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+</div>

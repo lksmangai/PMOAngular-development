@@ -1,0 +1,113 @@
+<!-- <div class="modal fade" id="useradd" tabindex="-1" role="dialog" aria-labelledby="useraddTitle" aria-hidden="true"> -->
+
+<div class="card remo-brd" style="max-width: 550px;">
+  <div class="card-header">
+    <h3 class="card-title">Add Resource</h3>
+    <div class="card-options">
+      <a class="card-options-remove" data-dismiss="modal"><i class="fe fe-x"></i></a>
+    </div>
+  </div>
+  <div class="p-4">
+    <div class="row">
+      <div class="col-md-12">
+        <kendo-multiselect [data]="employee" textField="fullName" valueField="id" [autoClose]="false"
+          [(ngModel)]="selectedItems">
+        </kendo-multiselect>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer d-block w-100 ">
+    <div class="d-flex justify-content-end">
+      <button type="button" (click)="addUser()" data-dismiss="modal" class="btn btn-primary btn-sm mr-4">
+        Add
+      </button>
+      <button type="button" data-dismiss="modal" class="btn btn-danger btn-sm">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 
+  <div>
+        <kendo-multiselect
+          [data]="employee"
+          textField="fullName"
+          valueField="id"
+          [(ngModel)]="selectedItems"
+        >
+        </kendo-multiselect>
+  </div>
+  <button
+      type="button"
+      class="btn btn-primary btn-block"
+      (click)="addUser()"
+    >
+      Add
+  </button>
+  
+  <button
+    type="button"
+    class="btn btn-primary btn-block"
+    (click)="closeModal"
+  >
+    Close
+  </button> -->
+
+<!-- <div class="modal fade" id="useradd" tabindex="-1" role="dialog" aria-labelledby="useraddTitle" aria-hidden="true">
+    <div class="" [formGroup]="myForm">
+        <input
+          type="search"
+          class="w-100"
+          kendoTextBox
+          autofocus
+          placeholder="Search"
+          (input)="filterEmployee($event.target.value)"
+        />
+        <ul class="list-unstyled o-auto p-4" style="max-height: 370px;">
+          <li class="mb-4" *ngFor="let e of employee; let i = index">
+            <label class="colorinput d-inline-flex">
+              <input
+                name="color"
+                type="checkbox"
+                [checked]="compare(e.id)"
+                (change)="checkboxChange($event.target.checked, e)"
+                value="{{ e.qnowUser.user.firstName }} {{ e.qnowUser.user.lastName }}"
+                class="colorinput-input"
+                formArrayName="employee"
+              />
+              <span
+                class="colorinput-color"
+                [ngClass]="{
+                  'bg-purple': (i + 1) % 10 == 0,
+                  'bg-blue': (i + 1) % 10 == 1,
+                  'bg-azure': (i + 1) % 10 == 2,
+                  'bg-indigo': (i + 1) % 10 == 3,
+                  'bg-red': (i + 1) % 10 == 4,
+                  'bg-orange': (i + 1) % 10 == 5,
+                  'bg-lime': (i + 1) % 10 == 6,
+                  'bg-teal': (i + 1) % 10 == 7,
+                  'bg-green': (i + 1) % 10 == 8,
+                  'bg-cyan': (i + 1) % 10 == 9
+                }"
+              ></span>
+              <div class="ml-3 mt-minus">
+                <h5 class="mb-0">
+                  {{ e.qnowUser.user.firstName }} {{ e.qnowUser.user.lastName }}
+                </h5>
+                <div class="small">
+                  {{ e.jobTitle }}
+                </div>
+              </div>
+            </label>
+          </li>
+        </ul>
+        <button
+          *ngIf="!createNew"
+          type="button"
+          class="btn btn-primary btn-block"
+          (click)="addUser()"
+        >
+          Add
+        </button>
+      </div> -->

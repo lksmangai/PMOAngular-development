@@ -1,0 +1,37 @@
+.circle-orange {
+  background-color: #ffeedb;
+  color: #ec6c0b;
+}
+.o-border {
+  border: 1px solid #ec6c0b;
+}
+.circle-green {
+  background-color: #e4ffdb;
+  color: #1ed102;
+}
+.g-border {
+  border: 1px solid #1ed102;
+}
+.circle-yellow {
+  background-color: #fff9db;
+  color: #f9c229;
+}
+.y-border {
+  border: 1px solid #f9c32e;
+}
+.circle-red {
+  background-color: #ffdbed;
+  color: #d10263;
+}
+.r-border {
+  border: 1px solid #d10364;
+}
+.priority {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+}
+.dropdown-menu {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  min-width: 15rem;
+}

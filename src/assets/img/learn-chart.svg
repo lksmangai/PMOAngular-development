@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="162.005" height="161.998" viewBox="0 0 162.005 161.998">
+  <g id="Ring_Chart0" data-name="Ring Chart0" transform="translate(125.008 124.999)">
+    <path id="Path_3632" data-name="Path 3632" d="M.508-125A81,81,0,0,1,77.144-69.246L61.73-64.259A64.8,64.8,0,0,0,.508-108.8Z" transform="translate(-44.182 0)" fill="#1f78b4"/>
+    <path id="Path_3633" data-name="Path 3633" d="M77.347-37.992A81,81,0,0,1,65.679,34.279,81,81,0,0,1,.508,67.626v-16.2A64.8,64.8,0,0,0,52.579,24.748a64.8,64.8,0,0,0,9.354-57.754Z" transform="translate(-44.182 -30.627)" fill="#a6cee3"/>
+    <path id="Path_3634" data-name="Path 3634" d="M-44.333,45.607a81,81,0,0,1-76.658-55.822,81,81,0,0,1,28.862-90.33l9.572,13.07a64.8,64.8,0,0,0-23.037,72.225A64.8,64.8,0,0,0-44.333,29.407Z" transform="translate(0 -8.608)" fill="#b2df8a"/>
+    <path id="Path_3635" data-name="Path 3635" d="M-73.447-109.542A81,81,0,0,1-26.183-125v16.2A64.8,64.8,0,0,0-63.875-96.473Z" transform="translate(-18.15 0)" fill="#33a02c"/>
+    <text id="_20.0_" data-name="20.0%" transform="translate(-45.843 -31.683)" fill="#1f78b4" font-size="35" font-family="ArialMT, Arial"><tspan x="-49.62" y="0">20.0%</tspan></text>
+  </g>
+</svg>

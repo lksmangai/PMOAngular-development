@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68.005" height="68" viewBox="0 0 68.005 68">
+  <g id="Ring_Chart6" data-name="Ring Chart6" transform="translate(41.004 40.997)">
+    <path id="Path_3591" data-name="Path 3591" d="M.459-41A33.861,33.861,0,0,1,31.391-19.926a34.148,34.148,0,0,1-7.207,36.848l-5.233-5.305a26.652,26.652,0,0,0,5.566-28.7A26.429,26.429,0,0,0,.459-33.528Z" transform="translate(-6.939)" fill="#0ac6fb"/>
+    <path id="Path_3592" data-name="Path 3592" d="M16.707,17.415a34.045,34.045,0,0,1-40.891,4.917A33.99,33.99,0,0,1-39.861-15.725,34.021,34.021,0,0,1-7.355-41v7.464A26.553,26.553,0,0,0-32.649-13.782,26.529,26.529,0,0,0-20.43,15.88a26.572,26.572,0,0,0,31.879-3.766Z" transform="translate(0 0)" fill="#bef1ff"/>
+    <text id="_24" data-name="24" transform="translate(-16.299 0.863)" font-size="20" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600"><tspan x="-10.26" y="0">24</tspan></text>
+    <text id="hrs" transform="translate(6.701 -0.137)" font-size="15" font-family="SourceSansPro-Light, Source Sans Pro" font-weight="300"><tspan x="-9.375" y="0">hrs</tspan></text>
+  </g>
+</svg>

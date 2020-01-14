@@ -1,0 +1,660 @@
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '1px',fullScreenBackdrop: true,primaryColour:'#EEA127',secondaryColour:'#EEA127',tertiaryColour:'#EEA127',backdropBackgroundColour:'rgba(255, 255, 255, 0.6)' }">
+</ngx-loading>
+<!-- 
+<div class="modal fade" id="addduser" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <app-addusermodal [selectedProjectId]="selectedProjectId" *ngIf="selectedProjectId"
+          (userRefresh)="userRefresh($event)">
+        </app-addusermodal>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-12 mb-4 d-flex justify-content-end">
+    <button class="btn mr-2 btn-sm bg-out-secondary" [class.active]="activetab === 'all'" (click)="taskList('all');">All
+      Task
+    </button>
+    <button class="btn mr-2 btn-sm bg-out-primary" [class.active]="activetab === 'inProgress'"
+      (click)="taskList('inProgress');">In Progress</button>
+    <button class="btn mr-2 btn-sm bg-out-" [class.active]="activetab === 'backlog'"
+      (click)="taskList('backlog')">Backlog</button>
+    <button class="btn mr-2 btn-sm bg-out-success" [class.active]="activetab === 'complete'"
+      (click)="taskList('complete')">Completed</button>
+    <button class="btn mr-2 btn-sm bg-out-info" [class.active]="activetab === 'onHold'" (click)="taskList('onHold')">On
+      Hold</button>
+    <button class="btn mr-2 btn-sm bg-out-warning" [class.active]="activetab === 'notStarted'"
+      (click)="taskList('notStarted')">Not Started</button>
+    <button class="btn mr-2 btn-sm bg-out-danger" [class.active]="activetab === 'risk'"
+      (click)="taskList('risk')">Risk</button>
+  </div>
+</div>
+<p data-toggle="collapse" data-target="#addtask" class="pointer text-primary"><i class="fa fa-plus mr-2"></i>Task</p>
+<div class="collapse show" id="addtask">
+  <div class="card" [formGroup]="quickTaskForm">
+    <div class="card-body" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+
+      <div class="table-responsive">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Task Title</label>
+                  <input type="text" class="w-100" kendoTextBox formControlName="projectName">
+                  <div
+                    *ngIf="quickTaskForm.get('projectName').invalid && (quickTaskForm.get('projectName').dirty || quickTaskForm.get('projectName').touched)">
+                    <small class="form-text text-danger" *ngIf="quickTaskForm.get('projectName').errors.required">
+                      This field is required.
+                    </small>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Start Date</label>
+                  <kendo-datepicker class="w-100" [(value)]="startDate" formControlName="startDate"></kendo-datepicker>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Due Date</label>
+                  <kendo-datepicker class="w-100" [(value)]="endDate" formControlName="endDate"></kendo-datepicker>
+                </div>
+              </td>
+              <!-- <td class="text-center">
+                <div class="form-group">
+                  <label class="form-label">&nbsp;</label>
+                  <div class="avatar-list avatar-list-stacked">
+
+                    <span class="avatar avatar-gray float-right" data-toggle="dropdown" (click)="openUserModal()"><i
+                        class="fe fe-user-plus"></i></span>
+                    <div class="dropdown-menu p-0 allow-focus">
+                      <app-addusermodal></app-addusermodal>
+                    </div>
+                  </div>
+                </div>
+              </td> -->
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Est. Hours</label>
+                  <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox
+                    formControlName="projectBudgetHours">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Milestone</label>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="milestoneP">
+                    <label class="custom-control-label" for="customCheck1"></label>
+                  </div>
+                  <!-- <label class="k-checkbox-label" for="ch1"></label>
+                  <input type="checkbox" id="ch1" class="k-checkbox" formControlName="milestoneP" /> -->
+
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">Timesheet Hours</label>
+                  <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox formControlName="loghours">
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <label class="form-label">&nbsp;</label>
+                  <button class="btn mr-2 btn-sm btn-primary" (click)="saveQuickTask()">Save</button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#addtask">Cancel</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Task Title</label>
+            <input type="text" class="w-100" kendoTextBox formControlName="projectName">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Start Date</label>
+            <kendo-datepicker class="w-100" [(value)]="startDate" formControlName="startDate"></kendo-datepicker>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Due Date</label>
+            <kendo-datepicker class="w-100" [(value)]="endDate" formControlName="endDate"></kendo-datepicker>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">&nbsp;</label>
+            <div class="avatar-list avatar-list-stacked">
+
+              <span class="avatar avatar-gray float-right" data-toggle="dropdown" (click)="openUserModal()"><i
+                  class="fe fe-user-plus"></i></span>
+              <div class="dropdown-menu p-0 allow-focus">
+                <app-addusermodal></app-addusermodal>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Est. Hours</label>
+            <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox formControlName="projectBudgetHours">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Milestone<br /></label>
+            <label class="k-checkbox-label" for="ch1"></label>
+            <input type="checkbox" id="ch1" class="k-checkbox" formControlName="milestoneP" />
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Timesheet Hours</label>
+            <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox formControlName="loghours">
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">&nbsp;</label>
+            <button class="btn mr-2 btn-sm btn-primary" (click)="saveQuickTask()">Save</button>
+            <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#addtask">Cancel</button>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+<kendo-grid [data]="gridData" class="w-100" (dataStateChange)="dataStateChange($event)" [height]="500"
+  (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)" (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)" (remove)="removeHandler($event)" (add)="addHandler($event)" [filterable]="true"
+  [filter]="state.filter" [loading]="loadingTaskListGrid">
+  <!-- [height]="410" -->
+  <kendo-grid-column field="projectName" title="Title" width="300">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span class="cell-hover">
+        <h4 class="mb-1 text-primary">{{ dataItem.projectName }}</h4>
+        <!-- <p class="mb-0">{{ dataItem.description }}</p> -->
+
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="projectBudgetHours" editor="number" width="80" title="Planned Hour" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      {{ dataItem.projectBudgetHours| number: "1.2-2" }}
+    </ng-template>
+  </kendo-grid-column>
+  <!-- <kendo-grid-column field="date" title="Created date" width="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span><i class="fe fe-calendar mr-1"></i>{{dataItem.startDate}}</span>
+    </ng-template>
+  </kendo-grid-column> -->
+  <kendo-grid-column title="Assigned" width="180" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <div class="avatar-list avatar-list-stacked">
+        <span *ngFor="let a of dataItem.allocationTable; let i = index">
+          <span *ngIf="i < 5" class="avatar avatar-sm avatar-hover avatar-blue" data-toggle="tooltip"
+            data-placement="top" title="{{ a.employee_first_name}}{{ a.employee_last_name}}"
+            [ngClass]="{'avatar-purple': (i+1)%5==0,'avatar-blue': (i+1)%5==1, 'avatar-azure': (i+1)%5==2, 'avatar-indigo': (i+1)%5==3, 'avatar-red': (i+1)%5==4}">{{ a.employee_first_name | initial
+            }}{{ a.employee_last_name | initial }}</span>
+        </span>
+
+        <span class="avatar avatar-sm avatar-hover avatar-gray dropdown-toggle"
+          *ngIf="dataItem.allocationTable.length > 5"
+          data-toggle="dropdown">+{{ dataItem.allocationTable.length - 5 }}</span>
+        <div class="dropdown-menu dropdown-menu-right allow-focus" x-placement="bottom-end">
+          <p class="mb-0 ml-3 text-muted">More user</p>
+          <ul class="list-unstyled mb-0 o-auto p-3" style="max-height: 320px;">
+            <li *ngFor="let a of dataItem.allocationTable; let i = index">
+              <div class="d-flex align-items-center" *ngIf="i>4">
+                <div class="avatar mr-3"
+                  [ngClass]="{'avatar-blue': (i+1)%14==0,'avatar-azure': (i+1)%14==1, 'avatar-indigo': (i+1)%14==2, 'avatar-purple': (i+1)%14==3, 'avatar-pink': (i+1)%14==4, 'avatar-red': (i+1)%14==5, 'avatar-orange': (i+1)%14==6, 'avatar-yellow': (i+1)%14==7, 'avatar-lime': (i+1)%14==8, 'avatar-green': (i+1)%14==9, 'avatar-teal': (i+1)%14==10, 'avatar-cyan': (i+1)%14==11, 'avatar-gray': (i+1)%14==12, 'avatar-gray-dark': (i+1)%14==13}">
+                  <p class="font-weight-normal mb-0">
+                    {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                  </p>
+                </div>
+                <div class="mb-3 text-truncate">
+                  <span>{{a.employee_first_name}} {{a.employee_last_name}}</span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <span>
+          <!-- <span class="pointer avatar avatar-sm avatar-tile float-right" (click)="openUserModal(dataItem)"><i
+              class="fe fe-user-plus"></i></span> -->
+
+          <span class="pointer avatar avatar-sm avatar-tile  dropdown-toggle float-right" data-toggle="dropdown"><i
+              (click)="openUserModal(dataItem)" class="fe fe-user-plus"></i></span>
+          <div class="dropdown-menu p-0">
+            <app-addusermodal *ngIf="isSelected(dataItem.id)" (userRefresh)="userRefresh($event)">
+            </app-addusermodal>
+          </div>
+        </span>
+
+      </div>
+    </ng-template>
+
+  </kendo-grid-column>
+
+  <!-- <kendo-grid-column  title="Timesheet Hours" width="110">
+      <ng-template kendoGridCellTemplate >
+        <span class="tag text-dark">
+          <span class="tag-avatar avatar">
+            <i class="fe fe-clock"></i>
+          </span>
+        </span>
+      </ng-template>
+    </kendo-grid-column> -->
+
+  <kendo-grid-column field="loghours" editor="number" title="Timesheet Hour" width="80" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <!-- <span class="tag text-dark">
+        <span class="tag-avatar avatar">
+          <i class="fe fe-clock"></i>
+        </span>
+        {{ dataItem.loghours| number: "1.2-2" }}
+      </span> -->
+      {{ dataItem.loghours| number: "1.2-2" }}
+
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="reportedHoursCache" editor="number" title="Task Hour" width="80" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <!-- <span class="tag text-dark">
+        <span class="tag-avatar avatar">
+          <i class="fe fe-clock"></i>
+        </span>
+        {{ dataItem.reportedHoursCache| number: "1.2-2" }}
+      </span> -->
+      {{ dataItem.reportedHoursCache| number: "1.2-2" }}
+
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="percentCompleted" editor="number" title="%" width="50" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-per>
+      <!-- <span class="tag tag-azure">{{per.percentCompleted | number: "1.0-0"}}%</span> -->
+      {{per.percentCompleted | number: "1.0-0"}}%
+    </ng-template>
+
+  </kendo-grid-column>
+  <kendo-grid-column field="startDate" title="Start Date" width="150" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-sdate>
+      <span class="k-date pl-0">
+        <kendo-datepicker [format]="'MMM dd yyyy'" placeholder="{{ sdate.startDate| date : 'mediumDate'}}"
+          [navigation]="false" (valueChange)="dateOnChange($event,sdate)" class="w-100">
+        </kendo-datepicker>
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="endDate" title="End Date" width="150" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-edate>
+      <!-- {{ edate.endDate | date: 'mediumDate' }} -->
+      <span class="k-date pl-0">
+        <kendo-datepicker [format]="'MMM dd yyyy'" placeholder="{{ edate.endDate| date : 'mediumDate'}}"
+          [navigation]="false" (valueChange)="endDateOnChange($event,edate)" class="w-100">
+        </kendo-datepicker>
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column title="Change Status" width="100" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <kendo-dropdownlist [data]="projectStatusId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+        [valueField]="'id'" (selectionChange)="changeStatus($event,dataItem)">
+      </kendo-dropdownlist>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column field="opportunityPriorityId" title="Priority" width="150" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <!-- <span *ngIf="dataItem.opportunityPriorityName != null">
+        <span *ngIf="
+            dataItem.opportunityPriorityName == '3 - High Priority' ||
+            dataItem.opportunityPriorityName == '2 - Very High Priority' ||
+            dataItem.opportunityPriorityName == '1 - Highest Priority'
+          ">
+          <button class="priority-button bg-high m-0">High</button>
+        </span>
+        <span *ngIf="
+            dataItem.opportunityPriorityName == '4 - Medium High Priority' ||
+            dataItem.opportunityPriorityName == '5 - Medium Priority' ||
+            dataItem.opportunityPriorityName == '6 - Medium Low Priority'
+          ">
+          <button class="priority-button bg-medium m-0">Medium</button>
+        </span>
+        <span *ngIf="
+            dataItem.opportunityPriorityName == '7 - Low Priority' ||
+            dataItem.opportunityPriorityName == '8 - Very Low Priority' ||
+            dataItem.opportunityPriorityName == '9 - Lowest Priority'
+          ">
+          <button class="priority-button bg-low m-0">Low</button>
+        </span>
+      </span> -->
+      <kendo-dropdownlist [data]="opportunityPriorityTable" [valuePrimitive]="true"
+        [defaultItem]="dataItem.opportunityPriorityName" [textField]="'name'" [valueField]="'id'"
+        (selectionChange)="changePriority($event,dataItem)" class="w-100">
+      </kendo-dropdownlist>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="milestoneP" editor="boolean" title="Milestone" width="80" [filterable]="false">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <input type="checkbox" value="true" [checked]="dataItem.milestoneP"
+        (change)="updateMilestone($event.target.checked, dataItem)" />
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column width="80" title="Delete">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <!-- <button (click)="updateTask(grid)">update</button> -->
+      <button class="btn text-danger" (click)="confirmDeletion(dataItem)">
+        <i class="fa fa-trash"></i>
+        Delete
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column width="80" title="Clone">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <button class="btn" (click)="cloneProject(dataItem)">
+        <i class="fa fa-clone"></i>
+        Clone
+      </button>
+    </ng-template>
+  </kendo-grid-column>
+  <!-- <ng-template *kendoGridDetailTemplate let-dataItem> -->
+  <div *kendoGridDetailTemplate="let dataItem" class="ml-6">
+    <h5 class="border-bottom pb-1">Subtask</h5>
+
+    <!-- <kendo-grid [data]="tableData" class="w-100" class="o-auto" (dataStateChange)="onStateChange($event)"
+  (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)" (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)" (remove)="removeHandler($event)" (add)="addHandler($event)"> -->
+
+    <span *ngIf="dataItem.subTask.length!=0">
+      <kendo-grid [data]="dataItem.subTask" (dataStateChange)="subTaskonStateChange($event)"
+        (cellClick)="subTaskcellClickHandler($event)" (cellClose)="subTaskcellCloseHandler($event)"
+        (cancel)="subTaskcancelHandler($event)" (save)="subTasksaveHandler($event)"
+        (remove)="subTaskremoveHandler($event)" (add)="subTaskaddHandler($event)">
+
+        <kendo-grid-column field="projectname" title="Title" width="300">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <span class="cell-hover">
+              <h4 class="mb-1 text-primary">{{ dataItem.projectname }}</h4>
+
+            </span>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="projectbudgethours" editor="number" width="80" title="Planned Hour">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <span class="tag text-dark">
+            <span class="tag-avatar avatar">
+              <i class="fe fe-clock"></i>
+            </span>
+            {{ dataItem.projectbudgethours| number: "1.2-2" }}
+          </span> -->
+            {{ dataItem.projectbudgethours| number: "1.2-2" }}
+          </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column title="Assigned" width="210">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <div class="avatar-list avatar-list-stacked">
+              <span *ngFor="let a of dataItem.allocationTable; let i = index">
+                <span *ngIf="i < 5" class="avatar avatar-sm avatar-hover avatar-blue" data-toggle="tooltip"
+                  data-placement="top" title="{{a.employee_first_name|initial}}{{a.employee_last_name|initial}}"
+                  [ngClass]="{'avatar-purple': (i+1)%5==0,'avatar-blue': (i+1)%5==1, 'avatar-azure': (i+1)%5==2, 'avatar-indigo': (i+1)%5==3, 'avatar-red': (i+1)%5==4}">{{ a.employee_first_name | initial
+            }}{{ a.employee_last_name | initial }}</span>
+              </span>
+
+              <span class="avatar avatar-sm avatar-hover avatar-gray dropdown-toggle"
+                *ngIf="dataItem.allocationTable.length > 5"
+                data-toggle="dropdown">+{{ dataItem.allocationTable.length - 5 }}</span>
+              <div class="dropdown-menu dropdown-menu-right allow-focus" x-placement="bottom-end">
+                <p class="mb-0 ml-3 text-muted">More user</p>
+                <ul class="list-unstyled mb-0 o-auto p-3" style="max-height: 320px;">
+                  <li *ngFor="let a of dataItem.allocationTable; let i = index">
+                    <div class="d-flex align-items-center" *ngIf="i>4">
+                      <div class="avatar mr-3"
+                        [ngClass]="{'avatar-blue': (i+1)%14==0,'avatar-azure': (i+1)%14==1, 'avatar-indigo': (i+1)%14==2, 'avatar-purple': (i+1)%14==3, 'avatar-pink': (i+1)%14==4, 'avatar-red': (i+1)%14==5, 'avatar-orange': (i+1)%14==6, 'avatar-yellow': (i+1)%14==7, 'avatar-lime': (i+1)%14==8, 'avatar-green': (i+1)%14==9, 'avatar-teal': (i+1)%14==10, 'avatar-cyan': (i+1)%14==11, 'avatar-gray': (i+1)%14==12, 'avatar-gray-dark': (i+1)%14==13}">
+                        <p class="font-weight-normal mb-0">
+                          {{a.employee_first_name|initial}} {{a.employee_last_name|initial}}
+                        </p>
+                      </div>
+                      <div class="mb-3 text-truncate">
+                        <span>{{a.employee_first_name}} {{a.employee_last_name}}</span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <span>
+                <span class="pointer avatar avatar-sm avatar-sm avatar-tile float-right dropdown-toggle"
+                  data-toggle="dropdown"><i (click)="openUserModal(dataItem)" class="fe fe-user-plus"></i></span>
+                <div class="dropdown-menu p-0">
+                  <app-addusermodal *ngIf="isSelected(dataItem.id)" (userRefresh)="userRefresh($event)">
+                  </app-addusermodal>
+                </div>
+              </span>
+
+            </div>
+          </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="loghours" editor="number" width="80" title="Timesheet Hour">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <span class="tag text-dark">
+            <span class="tag-avatar avatar">
+              <i class="fe fe-clock"></i>
+            </span>
+            {{ dataItem.loghours| number: "1.2-2" }}
+          </span> -->
+            {{ dataItem.loghours| number: "1.2-2" }}
+
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="percentcompleted" editor="number" width="50" title="%">
+          <ng-template kendoGridCellTemplate let-per>
+            <!-- <span class="tag tag-azure">{{per.percentcompleted | number: "1.0-0"}}%</span> -->
+            {{per.percentcompleted | number: "1.0-0"}}%
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="reportedhourscache" editor="number" width="80" title="Task Hour">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <span class="tag text-dark">
+            <span class="tag-avatar avatar">
+              <i class="fe fe-clock"></i>
+            </span>
+            {{ dataItem.reportedhourscache| number: "1.2-2" }}
+          </span> -->
+            {{ dataItem.reportedhourscache| number: "1.2-2" }}
+
+          </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column field="startdate" title="Start Date">
+          <ng-template kendoGridCellTemplate let-sdate>
+            <span class="k-date pl-0">
+              <kendo-datepicker [format]="'MMM dd yyyy'" placeholder="{{ sdate.startdate| date : 'mediumDate'}}"
+                [navigation]="false" (valueChange)="subTaskdateOnChange($event,sdate)" class="w-100">
+              </kendo-datepicker>
+            </span>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="enddate" title="End Date">
+          <ng-template kendoGridCellTemplate let-edate>
+            <span class="k-date pl-0">
+              <kendo-datepicker [format]="'MMM dd yyyy'" placeholder="{{ edate.enddate| date : 'mediumDate'}}"
+                [navigation]="false" (valueChange)="subTaskendDateOnChange($event,edate)" class="w-100">
+              </kendo-datepicker>
+            </span>
+          </ng-template>
+        </kendo-grid-column>
+
+        <kendo-grid-column title="Change Status">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <kendo-dropdownlist [data]="projectStatusId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+              [valueField]="'id'" (selectionChange)="subtaskChangeStatus($event,dataItem)">
+            </kendo-dropdownlist>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column field="opportunitypriorityid" width="120" title="Priority">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <span *ngIf="dataItem.opportunitypriorityname != null">
+              <span *ngIf="
+            dataItem.opportunitypriorityname == '3 - High Priority' ||
+            dataItem.opportunitypriorityname == '2 - Very High Priority' ||
+            dataItem.opportunitypriorityname == '1 - Highest Priority'
+          ">
+                <button class="priority-button bg-high m-0">High</button>
+              </span>
+              <span *ngIf="
+            dataItem.opportunitypriorityname == '4 - Medium High Priority' ||
+            dataItem.opportunitypriorityname == '5 - Medium Priority' ||
+            dataItem.opportunitypriorityname == '6 - Medium Low Priority'
+          ">
+                <button class="priority-button bg-medium m-0">Medium</button>
+              </span>
+              <span *ngIf="
+            dataItem.opportunitypriorityname == '7 - Low Priority' ||
+            dataItem.opportunitypriorityname == '8 - Very Low Priority' ||
+            dataItem.opportunitypriorityname == '9 - Lowest Priority'
+          ">
+                <button class="priority-button bg-low m-0">Low</button>
+              </span>
+            </span> -->
+            <kendo-dropdownlist [data]="opportunityPriorityTable" [valuePrimitive]="true"
+              [defaultItem]="dataItem.opportunitypriorityname" [textField]="'name'" [valueField]="'id'"
+              (selectionChange)="subTaskChangePriority($event,dataItem)" class="w-100">
+            </kendo-dropdownlist>
+          </ng-template>
+        </kendo-grid-column>
+        <!-- <kendo-grid-column field="milestonep" title="Milestone">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" />
+        </ng-template>
+      </kendo-grid-column> -->
+
+        <!-- <kendo-grid-column field="milestonep" editor="boolean" title="Milestone"></kendo-grid-column> -->
+        <kendo-grid-column field="milestonep" editor="boolean" width="60" title="Milestone">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" value="true" [checked]="dataItem.milestonep"
+              (change)="updateSubtaskMilestone($event.target.checked, dataItem)" />
+            <!-- <span *ngIf="dataItem.milestoneP==true">
+        
+      </span>
+      <span *ngIf="dataItem.milestoneP==false">
+        <input type="checkbox" value="false" disabled />
+      </span> -->
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column title="Delete">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <button (click)="updateSubTask(grid)">update</button> -->
+
+            <button class="btn text-danger" (click)="confirmDeletion(dataItem)">
+              <i class="fa fa-trash"></i>
+              Delete
+            </button>
+          </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column title="Clone">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <!-- <button (click)="updateSubTask(grid)">update</button> -->
+            <button class="btn" (click)="cloneProject(dataItem)">
+              <i class="fa fa-clone"></i>
+              Clone
+            </button>
+          </ng-template>
+        </kendo-grid-column>
+      </kendo-grid>
+    </span>
+    <table class="table">
+
+      <tr class="add-bg" [formGroup]="quickTaskForm">
+        <td>
+          <p class="pointer text-primary"><i class="fa fa-plus mr-2"></i> Sub Task</p>
+        </td>
+        <td>
+          <input type="text" class="w-100" kendoTextBox formControlName="projectName" placeholder="Subtask title" />
+          <div
+            *ngIf="quickTaskForm.get('projectName').invalid && (quickTaskForm.get('projectName').dirty || quickTaskForm.get('projectName').touched)">
+            <small class="form-text text-danger" *ngIf="quickTaskForm.get('projectName').errors.required">
+              This field is required.
+            </small>
+          </div>
+        </td>
+        <!-- <td>
+          <span class="pointer avatar avatar-sm avatar-tile  dropdown-toggle" data-toggle="dropdown"><i
+              (click)="openUserModal()" class="fe fe-user-plus"></i></span>
+          <div class="dropdown-menu p-0">
+            <app-addusermodal (userRefresh)="userRefresh($event)">
+            </app-addusermodal>
+          </div>
+        </td> -->
+        <td>
+          <div class="small">Start Date</div>
+          <kendo-datepicker [(value)]="startDate" formControlName="startDate" class="w-100"></kendo-datepicker>
+        </td>
+        <td>
+          <div class="small">End Date</div>
+          <kendo-datepicker [(value)]="endDate" formControlName="endDate" class="w-100"></kendo-datepicker>
+        </td>
+        <td>
+          <div class="small">Est. Hour</div>
+          <input type="number" kendoTextBox formControlName="projectBudgetHours" class="w-100" />
+        </td>
+        <!-- <td>
+          <div class="small">Milestone</div>
+          <input type="checkbox" class="custom-control-input" id="customCheck2" formControlName="milestoneP">
+          <label class="custom-control-label" for="customCheck2"></label>
+        </td> -->
+
+        <td>
+          <div class="small">Milestone</div>
+
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="customCheck2" formControlName="milestoneP">
+            <label class="custom-control-label" for="customCheck2"></label>
+          </div>
+          <!-- <label class="k-checkbox-label" for="ch1"></label>
+                    <input type="checkbox" id="ch1" class="k-checkbox" formControlName="milestoneP" /> -->
+
+
+        </td>
+
+
+        <td>
+          <div class="small">Timesheet Hour</div>
+          <input type="number" kendoTextBox formControlName="loghours" class="w-100" />
+        </td>
+        <td>
+          <div class="small">&nbsp;</div>
+          <button class="btn btn-sm btn-outline-primary" (click)="saveSubTask(dataItem.id)">Save Task</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</kendo-grid>
+
+<!-- Delete Dialog Box -->
+<kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')" [minWidth]="250" [width]="450">
+  <h3>Are you sure you want to Delete the Task?</h3>
+  <!-- <h3>Sorry, We are working on it...</h3> -->
+  <kendo-dialog-actions>
+    <button kendoButton (click)="close('no')">No</button>
+    <button kendoButton (click)="close('yes')" primary="true">Yes</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

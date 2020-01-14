@@ -1,0 +1,406 @@
+<!-- <div class="main-wrapper container">
+
+    <div class="main-header">Tuesday 4 <sup>th</sup> June
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-sm" (click)="setviewtype('week')"
+                [ngClass]="{'btn-primary':viewtype == 'week'}">Day</button>
+            <button type="button" class="btn btn-sm" (click)="setviewtype('month');displayscheduler()"
+                [ngClass]="{'btn-primary':viewtype == 'month'}">Month</button>
+        </div>
+    </div>
+
+    <div *ngIf="viewtype == 'week'">
+        <div class="flex-box justify-content-between">
+            <div class="card time-card p-3 text-center mr-3 active">
+                <h4 class="mb-0 text-uppercase">Mon</h4>
+                <h3 class="mb-1">0.00</h3>
+            </div>
+
+            <h4 class="mt-3 ">Project Details</h4>
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <kendo-dropdownlist [data]="allocation" class="w-100">
+                    <ng-template kendoDropDownListItemTemplate let-dataItem>
+                        <span *ngIf="dataItem.imEmployee">
+                            {{ dataItem.imEmployee.qnowUser.user.firstName}}
+                            {{ dataItem.imEmployee.qnowUser.user.lastName}}
+                        </span>
+                    </ng-template>
+                </kendo-dropdownlist>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Tue</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Wed</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Thu</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Fri</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Sat</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center mr-3">
+                    <h4 class="mb-0 text-uppercase">Sun</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+                <div class="card time-card p-3 text-center">
+                    <h4 class="mb-0 text-uppercase">Total</h4>
+                    <h3 class="mb-1">0.00</h3>
+                </div>
+            </div>
+
+            <h4 class="mt-3 ">Project Details</h4>
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <kendo-dropdownlist [data]="name" class="w-100"></kendo-dropdownlist>
+            </div>
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="project-title mb-2">PMO Design</div>
+                    <div class="row gutters-xs">
+                        <div class="col-md-4">
+                            <p class="task-title">Convert design template to code.</p>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Hours">
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Task">
+                        </div>
+                    </div>
+                    <div class="row gutters-xs">
+                        <div class="col-md-4">
+                            <p class="task-title">Prototype Design</p>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Hours">
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Task">
+                        </div>
+                    </div>
+                    <div class="row gutters-xs">
+                        <div class="col-md-4">
+                            <p class="task-title">Template Design</p>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Hours">
+                        </div>
+                        <div class="col-md-7">
+                            <input type="text" class="w-100" kendoTextBox placeholder="Task">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group float-right">
+                <button class="btn btn-sm btn-primary mr-2"><i class="fa fa-plus mr-1"></i>Add Task</button>
+                <button class="btn btn-sm btn-success"><i class="fa fa-check mr-1"></i>Update Task</button>
+            </div>
+        </div>
+
+
+        
+        <div *ngIf="viewtype == 'month'">
+            <div id="example">
+                <div id="team-schedule">
+                    <div id="people">
+                        <input checked type="checkbox" id="alex" aria-label="Alex" value="1">
+                        <input checked type="checkbox" id="bob" aria-label="Bob" value="2">
+                        <input type="checkbox" id="charlie" aria-label="Charlie" value="3">
+                    </div>
+                </div>
+                <div id="scheduler"></div>
+            </div>
+        </div>
+    </div>
+    </div> -->
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '1px',fullScreenBackdrop: true,primaryColour:'#EEA127',secondaryColour:'#EEA127',tertiaryColour:'#EEA127',backdropBackgroundColour:'rgba(255, 255, 255, 0.6)' }">
+</ngx-loading>
+
+<div class="main-wrapper container">
+  <div class="row">
+    <div class="col-md-10">
+      <h2 class="mb-0">{{ activeDate | date: "fullDate" }}</h2>
+    </div>
+    <div class="col-md-2">
+      <div class="btn-group float-right">
+        <button type="button" class="btn btn-sm" (click)="setviewtype('week')"
+          [ngClass]="{ 'btn-primary': viewtype == 'week' }">
+          Entry
+        </button>
+        <button type="button" class="btn btn-sm" (click)="setviewtype('month'); displayscheduler()"
+          [ngClass]="{ 'btn-primary': viewtype == 'month' }">
+          Report
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewtype == 'week'">
+    <div class="flex-box justify-content-between mt-3">
+      <div class="card time-card p-3 text-center mr-3" (click)="changeWeek(-7)">
+        <h4 class="mb-0 text-uppercase">Previous Week</h4>
+      </div>
+      <div class="card time-card p-3 text-center mr-3" *ngFor="let d of days; let i = index"
+        [ngClass]="d.day === activeDate ? 'active' : 'none' " (click)="selectedDate(d.day)">
+        <h4 class="mb-0 text-uppercase">{{ d.day | date: "fullDate" }}</h4>
+        <h3 class="mb-1">{{d.hours| number: "1.2-2"}}</h3>
+      </div>
+      <div class="card time-card p-3 text-center mr-3" (click)="changeWeek(7)">
+        <h4 class="mb-0 text-uppercase">Next Week</h4>
+      </div>
+    </div>
+
+    <div class="d-inline-block w-100 mt-4">
+      <h4 class="mt-3 float-left">Project Details</h4>
+      <!-- <div class="btn-group float-right">
+        <button class="btn btn-sm btn-primary mr-2">
+          <i class="fa fa-plus mr-1"></i>Add Task
+        </button>
+        <button class="btn btn-sm btn-success" (click)="saveChanges(grid)">
+          <i class="fa fa-check mr-1"></i>Save
+        </button>
+      </div> -->
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">User Name</label>
+          <kendo-dropdownlist [data]="user" [valuePrimitive]="true" [textField]="'fullName'" [valueField]="'id'"
+            class="w-100" (selectionChange)="userSelection($event)" [defaultItem]="defaultItem">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Project Name</label>
+          <kendo-dropdownlist [data]="allProject" [valuePrimitive]="true" [textField]="'projectName'"
+            [valueField]="'id'" class="w-100" (selectionChange)="projectSelection($event.id)"
+            [defaultItem]="defaultProject">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+    </div>
+
+    <p class="pointer text-primary"><span data-toggle="collapse" data-target="#addtask"><i
+          class="fa fa-plus mr-2"></i>Task
+      </span></p>
+    <div class="collapse" id="addtask">
+      <div class="card" [formGroup]="quickTaskForm">
+        <div class="card-body" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Task Title</label>
+                <input type="text" class="w-100" kendoTextBox formControlName="projectName">
+                <div
+                  *ngIf="quickTaskForm.get('projectName').invalid && (quickTaskForm.get('projectName').dirty || quickTaskForm.get('projectName').touched)">
+                  <small class="form-text text-danger" *ngIf="quickTaskForm.get('projectName').errors.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <kendo-datepicker class="w-100" [(value)]="startDate" formControlName="startDate"></kendo-datepicker>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <kendo-datepicker class="w-100" [(value)]="endDate" formControlName="endDate"></kendo-datepicker>
+              </div>
+            </div>
+            <!-- <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">&nbsp;</label>
+                <div class="avatar-list avatar-list-stacked">
+
+                  <span class="avatar avatar-gray float-right" data-toggle="dropdown" (click)="openUserModal()"><i
+                      class="fe fe-user-plus"></i></span>
+                  <div class="dropdown-menu p-0 allow-focus">
+                    <app-addusermodal></app-addusermodal>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Est. Hours</label>
+                <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox
+                  formControlName="projectBudgetHours">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+
+                <div class="small">Milestone</div>
+
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="customCheck2" formControlName="milestoneP">
+                  <label class="custom-control-label" for="customCheck2"></label>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Timesheet Hours</label>
+                <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox formControlName="loghours">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">&nbsp;</label>
+                <button class="btn mr-2 btn-sm btn-primary" [disabled]="!quickTaskForm.valid"
+                  (click)="saveQuickTask()">Save</button>
+                <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#addtask">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="viewtype == 'week'">
+      <!-- <div class="flex-box justify-content-between mt-3">
+        <div class="card time-card p-3 text-center mr-3" *ngFor="let d of days let i = index"
+          [ngClass]="d === activeDate? 'active' : 'none'" (click)="selectedDate(d)">
+          <h4 class="mb-0 text-uppercase">{{d|date:"fullDate"}}</h4>
+          <h3 class="mb-1">0.00</h3>
+        </div>
+      </div>
+
+      <h4 class="mt-3 ">Project Details</h4> -->
+      <!-- <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">User Name</label>
+            <kendo-dropdownlist [data]="user" [valuePrimitive]="true" [textField]="'fullName'" [valueField]="'id'"
+              class="w-100" (selectionChange)="selectedUser($event)" [defaultItem]="defaultItem">
+            </kendo-dropdownlist>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-label">Project Name</label>
+            <kendo-dropdownlist [data]="allProject" [valuePrimitive]="true" [textField]="'projectName'"
+              [valueField]="'id'" class="w-100" (selectionChange)="selectedProject($event.id)">
+            </kendo-dropdownlist>
+          </div>
+        </div>
+      </div> -->
+      <div class="card">
+        <div class="card-body p-3">
+          <kendo-grid [data]="gridData" height="500" (dataStateChange)="dataStateChange($event)"
+            (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)"
+            (cancel)="cancelHandler($event)" (save)="saveHandler($event)" (remove)="removeHandler($event)"
+            (add)="addHandler($event)" [filterable]="true" [filter]="state.filter">
+
+            <!-- <kendo-grid id="productsGrid" (cellClick)="cellClickHandler($event)"
+            <div class="card">
+                 <div class="card-body p-3">
+            <kendo-grid
+          [data]="view"
+          height="500"
+          (dataStateChange)="onStateChange($event)"
+          (cellClick)="cellClickHandler($event)"
+          (cellClose)="cellCloseHandler($event)"
+          (cancel)="cancelHandler($event)"
+          (save)="saveHandler($event)"
+          (remove)="removeHandler($event)"
+          (add)="addHandler($event)"
+        >
+          <!-- <kendo-grid id="productsGrid" (cellClick)="cellClickHandler($event)"
+                    (cellClose)="cellCloseHandler($event)" [groupable]="true" [group]="groups"
+                    (groupChange)="groupChange($event)" [data]="view" height="500" (add)="addHandler($event)"> -->
+            <!-- <ng-template kendoGridToolbarTemplate>
+              <button kendoGridAddCommand>Add new</button>
+              <button *ngIf="formGroup" (click)="cancelHandler()" class="k-button k-primary">
+                Cancel
+              </button>
+            </ng-template> -->
+            <kendo-grid-column field="projectName" title="Project Name"></kendo-grid-column>
+            <kendo-grid-column field="loghours" title="Hours" [filterable]="false"></kendo-grid-column>
+            <kendo-grid-column field="notes" editor="text" title="Notes" [filterable]="false"></kendo-grid-column>
+          </kendo-grid>
+          <!-- <div class="project-title mb-2"></div> -->
+          <!-- <div class="row gutters-xs" *ngFor="let p of projectsAllocation let index=i">
+                    <div class="col-md-4">
+                        <p class="task-title" *ngIf="!p.imProjects">Project Name</p>
+
+                        <p class="task-title" *ngIf="p.imProjects">{{p.imProjects.projectName}}</p>
+                    </div>
+                    <div class="col-md-1">
+
+                        <input type="text" class="w-100" formControlName="loghours" kendoTextBox placeholder="Hours">
+                    </div>
+                    <div class="col-md-7">
+
+
+                        <input type="text" class="w-100" formControlName="notes" kendoTextBox placeholder="Notes">
+                    </div>
+                </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Kendo Timesheet -->
+  <div *ngIf="viewtype == 'month'">
+    <div class="d-inline-block w-100 mt-4">
+      <h4 class="mt-3 float-left">Project Details</h4>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">User Name</label>
+          <kendo-dropdownlist [data]="user" [valuePrimitive]="true" [textField]="'fullName'" [valueField]="'id'"
+            class="w-100" (selectionChange)="selectedUser($event)" [defaultItem]="defaultItem">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Project Name</label>
+          <kendo-dropdownlist [data]="allProject" [valuePrimitive]="true" [textField]="'projectName'"
+            [valueField]="'id'" class="w-100" (selectionChange)="projectSelection($event.id)"
+            [defaultItem]="defaultProject">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="viewtype == 'week'">
+
+      <div class="card">
+        <div class="card-body p-3">
+          <kendo-grid [data]="gridData" height="500" (dataStateChange)="dataStateChange($event)"
+            (cellClick)="cellClickHandler($event)" (cellClose)="cellCloseHandler($event)"
+            (cancel)="cancelHandler($event)" (save)="saveHandler($event)" (remove)="removeHandler($event)"
+            (add)="addHandler($event)" [filterable]="true" [filter]="state.filter">
+
+            <kendo-grid-column field="projectName" title="Project Name"></kendo-grid-column>
+            <kendo-grid-column field="loghours" title="Hours" [filterable]="false"></kendo-grid-column>
+            <kendo-grid-column field="notes" editor="text" title="Notes" [filterable]="false"></kendo-grid-column>
+          </kendo-grid>
+
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Backlog",
+    "id": "Backlog",
+    "tasks": []
+  },
+  {
+    "title": "Not Started",
+    "id": "Not Started",
+    "tasks": []
+  },
+  {
+    "title": "In-Progress",
+    "id": "In-Progress",
+    "tasks": []
+  },
+  {
+    "title": "Completed",
+    "id": "Completed",
+    "tasks": []
+  },
+  {
+    "title": "On Hold",
+    "id": "On Hold",
+    "tasks": []
+  },
+  {
+    "title": "Risk",
+    "id": "Risk",
+    "tasks": []
+  }
+]

@@ -1,0 +1,208 @@
+<div class="container">
+  <h3>Create Project</h3>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-label">Project Name</label>
+          <input type="text" kendoTextBox class="w-100" formControlName="projectName" />
+          <div
+            *ngIf="myForm.get('projectName').invalid && (myForm.get('projectName').dirty || myForm.get('projectName').touched)">
+            <small class="form-text text-danger" *ngIf="myForm.get('projectName').errors.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="w-100" kendoTextArea formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">2019 Theme</label>
+          <kendo-dropdownlist [data]="projectTheme" [valuePrimitive]="true" [textField]="'name'" [valueField]="'id'"
+            class="w-100" formControlName="projectTheme">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Project Vertical</label>
+          <kendo-dropdownlist [data]="projectVertical" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+            [valueField]="'id'" class="w-100" formControlName="projectVertical">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">Project Type</label>
+          <kendo-dropdownlist [data]="projectTypeId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+            [valueField]="'id'" class="w-100" formControlName="projectTypeId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="form-label">2018 Bucket</label>
+          <kendo-dropdownlist [data]="projectBucketId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+            [valueField]="'id'" class="w-100" formControlName="projectBucketId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Project #</label>
+          <input type="text" kendoTextBox class="w-100" placeholder="{{ projectNr }}" formControlName="projectNr"
+            disabled />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Project Status</label>
+          <kendo-dropdownlist [data]="projectStatusId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+            [valueField]="'id'" class="w-100" formControlName="projectStatusId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label class="form-label">Priority</label>
+          <kendo-dropdownlist [data]="opportunityPriorityId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+            [valueField]="'id'" class="w-100" formControlName="opportunityPriorityId">
+          </kendo-dropdownlist>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <kendo-daterange>
+          <div class="flex-row d-flex">
+            <div class="w-50 pr-3">
+              <label class="form-label">Estimated Start Date</label>
+              <kendo-dateinput class="w-100" kendoDateRangeStartInput formControlName="startDate"></kendo-dateinput>
+            </div>
+
+            <div class="w-50">
+              <label class="form-label">Estimated Delivery Date</label>
+              <kendo-dateinput class="w-100" kendoDateRangeEndInput formControlName="endDate">
+              </kendo-dateinput>
+            </div>
+          </div>
+        </kendo-daterange>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label">Estimated Project Hours</label>
+          <input class="w-100" type="number" kendoTextBox placeholder="HH:MM" formControlName="projectBudgetHours" />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label class="form-label">Estimated Project Expenses</label>
+          <input class="w-100" type="number" kendoTextBox placeholder="HH:MM" formControlName="projectBudget" />
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <kendo-daterange>
+          <div class="flex-row d-flex">
+            <div class="w-50 pr-3">
+              <label class="form-label">Start Date</label>
+              <kendo-dateinput class="w-100" kendoDateRangeStartInput [(value)]="range.start"></kendo-dateinput>
+            </div>
+
+            <div class="w-50">
+              <label class="form-label">Delivery Date</label>
+              <kendo-dateinput class="w-100" kendoDateRangeEndInput [(value)]="range.end"></kendo-dateinput>
+            </div>
+          </div>
+        </kendo-daterange>
+      </div> -->
+      <!-- <div class="col-md-6">
+        <label class="form-label">Add user</label>
+        <div class="d-flex align-items-center">
+          <div class="text-muted">
+            <div class="avatar-list avatar-list-stacked pointer">
+              <span class="avatar border-dashed bg-transparent mr-3 pointer dropdown-toggle"
+                (click)="openUserModal(project)" data-toggle="dropdown"><i class="fe fe-plus"></i></span>
+              <div class="dropdown-menu p-0">
+                <app-addusermodal>[createNew]="true" (userRefresh)="userRefresh($event)"</app-addusermodal>
+              </div>
+            </div>
+          </div>
+          <div class="custom-control custom-checkbox ml-auto">
+            <input type="checkbox" class="custom-control-input" id="notify" />
+            <label class="custom-control-label" for="notify">Notify via Email</label>
+          </div>
+        </div>
+      </div> -->
+
+      <div id="moreoption" class="collapse col-md-12">
+        <div class="row">
+          <!-- <h5 class="text-primary col-md-12">More Options</h5>
+             <div class="col-md-12">
+                <nav>
+                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="risk-tab" data-toggle="tab" href="#risk" role="tab"
+                      aria-controls="risk" aria-selected="true">Risk</a>
+                    <a class="nav-item nav-link" id="milestones-tab" data-toggle="tab" href="#milestones" role="tab"
+                      aria-controls="milestones" aria-selected="false">Milestones</a>
+                    <a class="nav-item nav-link" id="backlog-tab" data-toggle="tab" href="#backlog" role="tab"
+                      aria-controls="backlog" aria-selected="false">Backlog</a>
+                    <a class="nav-item nav-link" id="meeting-tab" data-toggle="tab" href="#meeting" role="tab"
+                      aria-controls="meeting" aria-selected="false">Meetings Notes</a>
+                  </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade p-3 show active" id="risk" role="tabpanel" aria-labelledby="risk-tab">
+                    <h4>Risk Module</h4>
+                  </div>
+                  <div class="tab-pane fade p-3" id="milestones" role="tabpanel" aria-labelledby="milestones-tab">
+                    <h4>Milestones Module</h4>
+                  </div>
+                  <div class="tab-pane fade p-3" id="backlog" role="tabpanel" aria-labelledby="backlog-tab">
+                    <h4>Backlog Module</h4>
+                  </div>
+                  <div class="tab-pane fade p-3" id="meeting" role="tabpanel" aria-labelledby="meeting-tab">
+                    <h4>Meeting Module</h4>
+                  </div>
+                </div>
+              </div> -->
+        </div>
+      </div>
+
+      <div class="col-md-12"></div>
+    </div>
+    <div class="d-block border-top w-100 p-2" style="
+    bottom: 0 !important;
+    position: absolute;
+    right: 0;
+">
+      <div class="float-right">
+        <span *ngIf="!flagUpdate">
+          <button type="button" class="btn btn-secondary mr-3" (click)="close()">
+            Close
+          </button>
+          <button type="button" [disabled]="!myForm.valid" class="btn btn-primary" data-dismiss="modal"
+            (click)="projectUpdate()">
+            update
+          </button>
+        </span>
+        <span *ngIf="flagUpdate">
+          <button type="button" class="btn btn-secondary mr-3" (click)="close()">
+            Close
+          </button>
+          <button type="button" [disabled]="!myForm.valid" class="btn btn-primary mr-3" data-dismiss="modal"
+            (click)="projectSave()">
+            Save
+          </button>
+          <button type="button" [disabled]="!myForm.valid" class="btn btn-primary mr-3" data-dismiss="modal"
+            (click)="projectSave(true)">
+            Save & Add Task
+          </button>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>

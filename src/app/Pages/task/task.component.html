@@ -1,0 +1,605 @@
+<!-- <div class="modal fade" id="createtask" role="dialog" aria-labelledby="createtaskLabel" aria-hidden="true">
+  <app-createtask [selectedTitle]="selectedTitle" [selectedId]="selectedId" (taskOutput)="taskOutput($event)">
+  </app-createtask>
+</div> -->
+<!-- Add Reasourse modal -->
+
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '1px',fullScreenBackdrop: true,primaryColour:'#EEA127',secondaryColour:'#EEA127',tertiaryColour:'#EEA127',backdropBackgroundColour:'rgba(255, 255, 255, 0.6)' }">
+</ngx-loading>
+
+<div class="modal fade" id="addduser" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <app-addusermodal [selectedProjectId]="selectedProjectId" *ngIf="selectedProjectId"
+          (userRefresh)="userRefresh($event)">
+        </app-addusermodal>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="overlay">
+  <div id="mySidenav" class="sidenav">
+    <a class="closebtn" (click)="closetasknav()"><i class="fe fe-arrow-right"></i></a>
+    <app-createtask [selectedTitle]="selectedTitle" [trackTitle]="trackTitle" [selectedId]="selectedId"
+      (taskRefresh)="taskRefresh($event)">
+    </app-createtask>
+  </div>
+</div>
+
+<div class="main-wrapper">
+  <!-- <div class="row">
+    <div class="container">
+      <div class="col-md-1 ml-auto">
+        <button class="btn btn-sm btn-primary" data-toggle="modal" (click)="createTask()"><i
+            class="fa fa-plus mr-2"></i>Create Project</button>
+      </div>
+    </div>
+  </div> -->
+  <div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <label class="form-label">Select a Project to Update Tasks</label>
+            <div class="selectgroup w-100">
+              <kendo-dropdownlist class="form-control form-control-sm w-100" [data]="allProjects" [filterable]="true"
+                [textField]="'projectName'" [valueField]="'id'" [defaultItem]="defaultItem"
+                (selectionChange)="selectionChange($event)" (filterChange)="handleFilter($event)">
+              </kendo-dropdownlist>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">&nbsp;</label>
+          <label class="custom-switch mt-1">
+            <input type="checkbox" (change)="checkboxChange($event)" name="option" value="2"
+              class="custom-switch-input">
+            <span class="custom-switch-indicator mr-2 "></span>
+            <span *ngIf="isChecked">All Projects</span>
+            <span *ngIf="!isChecked">My Projects</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="tab-content pl-0 pt-4" id="nav-tabContent">
+    <nav class="">
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="task-tab" data-toggle="tab" href="#task" role="tab" aria-controls="task"
+          aria-selected="true">
+          <i class="fa fa-th-list mr-1"></i>Task List</a>
+        <a class="nav-item nav-link " id="kanban-tab" data-toggle="tab" (click)="refreshKanban()" href="#kanban"
+          role="tab" aria-controls="kanban" aria-selected="false">
+          <i class="fa fa-th mr-1"></i>Kanban</a>
+        <a class="nav-item nav-link" id="cal-tab" data-toggle="tab" href="#cal" role="tab" aria-controls="cal"
+          aria-selected="false">
+          <i class="fa fa-calendar mr-1"></i>Calendar</a>
+        <a class="nav-item nav-link" id="milestone-tab" data-toggle="tab" href="#milestone" role="milestone"
+          aria-controls="milestone" aria-selected="false">
+          <i class="fe fe-trending-up mr-1"></i>Milestone</a>
+      </div>
+    </nav>
+
+
+    <div class="tab-pane fade show active" id="task" role="tabpanel" aria-labelledby="task-tab">
+      <div>
+        <app-task-list *ngIf="selectedProject" [selectedProject]="selectedProject"></app-task-list>
+        <!-- <router-outlet></router-outlet> -->
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12 mb-4 d-flex justify-content-end">
+          <button class="btn mr-2 btn-sm bg-out-primary" [class.active]="activetab === 'inProgress'"
+            (click)="taskList('inProgress');" routerLinkActive="active">In Progress</button>
+          <button class="btn mr-2 btn-sm bg-out-secondary" [class.active]="activetab === 'backlog'"
+            (click)="taskList('backlog')">Backlog</button>
+          <button class="btn mr-2 btn-sm bg-out-success" [class.active]="activetab === 'complete'"
+            (click)="taskList('complete')">Completed</button>
+          <button class="btn mr-2 btn-sm bg-out-info" [class.active]="activetab === 'onHold'"
+            (click)="taskList('onHold')">On Hold</button>
+          <button class="btn mr-2 btn-sm bg-out-warning" [class.active]="activetab === 'notStarted'"
+            (click)="taskList('notStarted')">Not Started</button>
+          <button class="btn mr-2 btn-sm bg-out-danger" [class.active]="activetab === 'risk'"
+            (click)="taskList('risk')">Risk</button>
+        </div>
+      </div> -->
+
+      <!-- Add Task Start -->
+      <!-- <p data-toggle="collapse" data-target="#addtask" class="pointer text-primary"><i class="fa fa-plus mr-2"></i>Add
+        Quick Task</p>
+      <div class="collapse show" id="addtask">
+        <div class="card" [formGroup]="editForm">
+          <div class="card-body" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Task Title</label>
+                  <input type="text" class="w-100" kendoTextBox formControlName="projectName">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Due Date</label>
+                  <kendo-datepicker class="w-100" [(value)]="value" formControlName="endDate"></kendo-datepicker>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Task Type</label>
+                  <kendo-dropdownlist class="w-100" [data]="projectTypeId" [filterable]="true" [valuePrimitive]="true"
+                    [textField]="'name'" [valueField]="'id'" (filterChange)="handleFilter($event)"
+                    formControlName="projectTypeId">
+                  </kendo-dropdownlist>
+
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">&nbsp;</label>
+                  <div class="avatar-list avatar-list-stacked">
+                    <span class="avatar avatar-purple">PR</span>
+                    <span class="avatar avatar-blue">WH</span>
+                    <span class="avatar avatar-azure">MR</span>
+                    <span class="avatar avatar-indigo">DB</span>
+                    <span class="avatar avatar-red">PP</span>
+                    <span class="avatar">+8</span>
+                    <span class="avatar avatar-gray float-right" data-toggle="dropdown"><i
+                        class="fe fe-user-plus"></i></span>
+                    <div class="dropdown-menu p-0 allow-focus">
+                      <app-addusermodal></app-addusermodal>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Est. Hour</label>
+                  <input type="text" class="w-100" kendoTextBox formControlName="projectBudgetHours">
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">&nbsp;</label>
+                  <button class="btn mr-2 btn-sm btn-primary" (click)="saveQuickTask()">Save</button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#addtask">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <!-- Add Task End -->
+
+
+    </div>
+
+    <div class="tab-pane fade " id="kanban" role="tabpanel" aria-labelledby="kanban-tab">
+
+      <div class="board" cdkDropList [cdkDropListData]="tracks" (cdkDropListDropped)="onTrackDrop($event)"
+        cdkDropListOrientation="horizontal">
+
+        <div class="card-list" *ngFor="let track of tracks; let i = index">
+          <div class="card-status"></div>
+          <div class="p-2 mb-2 card-header border-0">
+            <h2 class="mb-0">{{ track.title }}</h2>
+          </div>
+          <a class="add-button" data-toggle="modal" (click)="createtaskBottom(track)"> + </a>
+
+          <div class="card-list-content" cdkDropList [id]="track.id" [cdkDropListData]="track.tasks"
+            [cdkDropListConnectedTo]="trackIds" (cdkDropListDropped)="onTalkDrop($event)">
+
+            <ng-container *ngFor="let task of track.tasks;let i = index">
+
+              <div class="card" cdkDrag>
+                <div class="card-body task-card pointer">
+                  <!-- <div class="card-handle-task"></div> -->
+                  <div class="ml-5">
+                    <div class="row mb-2">
+                      <div class="col-md-11 p-0">
+                        <span *ngIf="task.opportunityPriorityId!=null">
+                          <span
+                            *ngIf="task.opportunityPriorityId.name=='3 - High Priority' || task.opportunityPriorityId.name== '2 - Very High Priority' || task.opportunityPriorityId.name=='1 - Highest Priority'">
+                            <button class="priority-button bg-low m-0">Low</button>
+                          </span>
+                          <span
+                            *ngIf="task.opportunityPriorityId.name=='4 - Medium High Priority' || task.opportunityPriorityId.name== '5 - Medium Priority' || task.opportunityPriorityId.name=='6 - Medium Low Priority'">
+                            <button class="priority-button bg-medium m-0">Medium</button>
+                          </span>
+                          <span
+                            *ngIf="task.opportunityPriorityId.name=='7 - Low Priority' || task.opportunityPriorityId.name=='8 - Very Low Priority' || task.opportunityPriorityId.name=='9 - Lowest Priority'">
+                            <button class="priority-button bg-high m-0">High</button>
+                          </span>
+                        </span>
+                      </div>
+                      <div class="col-md-1">
+                        <i class="fe fe-x text-muted pointer float-right" title="Close task"></i>
+                      </div>
+                    </div>
+
+                    <div class="row mb-2">
+                      <h5 class="mb-0 text-primary mt-2 font-500 text-truncate pr-2" title="{{ task.projectName }}"
+                        (click)="editTask(task,track.title)">
+                        {{ task.projectName }}</h5>
+                    </div>
+                    <div class="row mb-2">
+                      <small class="mb-0">{{task.description}}</small>
+                    </div>
+
+
+
+
+                    <div class="row mb-2">
+                      <div class="col-md-8 p-0">
+                        <div class="avatar-list avatar-list-stacked">
+                          <span *ngIf="task.allocationTable">
+                            <span *ngFor="let a of task.allocationTable; let i = index">
+                              <span *ngIf="i<5" class="avatar avatar-sm avatar-hover" data-toggle="tooltip"
+                                data-placement="top" title="{{a.employee_first_name}}{{a.employee_last_name}}"
+                                [ngClass]="{'avatar-purple': (i+1)%5==0,'avatar-blue': (i+1)%5==1, 'avatar-azure': (i+1)%5==2, 'avatar-indigo': (i+1)%5==3, 'avatar-red': (i+1)%5==4}">
+                                {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                              </span>
+                            </span>
+                            <div class="dropdown show">
+                              <span *ngIf="task.allocationTable.length>5" class="pointer avatar avatar-sm avatar-tile"
+                                data-toggle="dropdown">+{{task.allocationTable.length-5}}</span>
+                              <div class="dropdown-menu dropdown-menu-right allow-focus" x-placement="bottom-end">
+                                <p class="mb-0 ml-3 text-muted">More user</p>
+                                <ul class="list-unstyled mb-0 o-auto p-3" style="max-height: 320px;">
+                                  <li *ngFor="let a of task.allocationTable; let i = index">
+                                    <div class="d-flex align-items-center" *ngIf="i>4">
+                                      <div class="avatar mr-3"
+                                        [ngClass]="{'avatar-blue': (i+1)%14==0,'avatar-azure': (i+1)%14==1, 'avatar-indigo': (i+1)%14==2, 'avatar-purple': (i+1)%14==3, 'avatar-pink': (i+1)%14==4, 'avatar-red': (i+1)%14==5, 'avatar-orange': (i+1)%14==6, 'avatar-yellow': (i+1)%14==7, 'avatar-lime': (i+1)%14==8, 'avatar-green': (i+1)%14==9, 'avatar-teal': (i+1)%14==10, 'avatar-cyan': (i+1)%14==11, 'avatar-gray': (i+1)%14==12, 'avatar-gray-dark': (i+1)%14==13}">
+                                        <p class="font-weight-normal mb-0">
+                                          {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                                        </p>
+                                      </div>
+                                      <div class="mb-3 text-truncate">
+                                        <span>{{a.employee_first_name}} {{a.employee_last_name}}</span>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </span>
+                          <div class="col-1">
+                            <span class="pointer avatar avatar-sm avatar-tile" (click)="openUserModal(task)"><i
+                                class="fe fe-user-plus"></i></span>
+                            <!-- <div class="dropdown-menu p-0">
+                              <app-addusermodal *ngIf="isSelected(task.id)" (userRefresh)="userRefresh($event)">
+                              </app-addusermodal>
+                            </div> -->
+                          </div>
+
+
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="icon pull-right mr-3">
+                          <span *ngIf="!task.percentCompleted" class="badge badge tag-azure">0%</span>
+                          <span *ngIf="task.percentCompleted"
+                            class="badge badge tag-azure">{{task.percentCompleted|number : '1.0-0'}}%</span>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="mt-3 mb-3 d-flex justify-content-between">
+                        <span class="k-date pl-0">
+                          <kendo-datepicker [format]="'dd-MMM-yyyy'" placeholder="{{task.endDate| date : 'mediumDate'}}"
+                            [navigation]="false" (valueChange)="dateOnChange($event,task)" class="w-100">
+                          </kendo-datepicker>
+                        </span>
+                        <span>
+                          <i class="fe fe-clock text-muted mr-1 pointer small" title="Time"></i>
+                          <input type="text" class="editable" placeholder="{{task.loghours|number : '1.2-2'}}"
+                            (change)="valuechange($event,task)">
+                          hrs
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer p-2">
+                  <div class="d-flex justify-content-between">
+                    <div><i class="fe fe-tag"></i></div>
+                    <div><i class="fe fe-flag"></i></div>
+                    <div><i class="fe fe-calendar"></i></div>
+                    <div><i class="fe fe-clock"></i></div>
+                    <div><i class="fe fe-user"></i></div>
+                  </div>
+                </div>
+              </div>
+
+              <span class="collapse" id="demo{{i}}">
+                <div *ngFor="let subTask of showSubTask(task)">
+                  <span cdkDrag>
+                    <div class="card bg-light-blue" cdkDragHandle>
+                      <div class="card-handle-subtask"></div>
+                      <div class="card-body task-card pb-0 pl-3 pointer" data-toggle="modal"
+                        (click)="editSubTask(subTask)">
+                        <div class="row">
+                          <div class="col-md-11"></div>
+                          <div class="col-md-1">
+                            <i class="fe fe-x text-muted pointer float-right" title="Close task"></i>
+                          </div>
+                        </div>
+                        <h5 class="text-primary font-500 mb-0">{{ subTask.projectName }}</h5>
+                        <small class="mb-0">Create Project with new design</small>
+                        <div class="mt-3">
+                          <small><i
+                              class="fe fe-calendar mr-1 text-muted"></i>{{subTask.startDate| date : 'mediumDate'}}</small>
+                          <span class="float-right">
+                            <a class="icon mr-2">
+                              <span class="badge badge tag-azure">{{subTask.percentCompleted|number : '1.2-2'}}%</span>
+                            </a>
+                            <p class="d-inline-block"><i class="fe fe-clock text-muted mr-1 pointer small"
+                                title="Time"></i>2.00 hrs</p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </div>
+              </span>
+            </ng-container>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="cal" role="tabpanel" aria-labelledby="cal-tab">
+      <div id="example">
+        <div id="gantt"></div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="milestone" role="tabpanel" aria-labelledby="milestone">
+      <!-- Add Task Start -->
+      <p data-toggle="collapse" data-target="#mile" class="pointer text-primary mt-5"><i class="fa fa-plus mr-2"></i>Add
+        Quick Milestone</p>
+      <div class="collapse" id="mile">
+        <div class="card">
+          <div class="card-body" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Project Name</label>
+                  <input type="text" class="w-100" kendoTextBox>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Due Date</label>
+                  <kendo-datepicker class="w-100" [(value)]="value"></kendo-datepicker>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Project Manager</label>
+                  <kendo-dropdownlist class="w-100" [data]="data" [filterable]="true" [textField]="'text'"
+                    [valueField]="'value'" (filterChange)="handleFilter($event)">
+                  </kendo-dropdownlist>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Project Status</label>
+                  <kendo-dropdownlist class="w-100" [data]="data" [filterable]="true" [textField]="'text'"
+                    [valueField]="'value'" (filterChange)="handleFilter($event)">
+                  </kendo-dropdownlist>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">Est. Hour</label>
+                  <input type="number" class="w-100" kendoTextBox>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label class="form-label">&nbsp;</label>
+                  <button class="btn mr-2 btn-sm btn-primary">Save</button>
+                  <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#mile">Cancel</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <kendo-grid [data]="milestone">
+        <kendo-grid-column field="title" title="Title">
+        </kendo-grid-column>
+        <kendo-grid-column field="plannedhour" title="Planned Hour">
+        </kendo-grid-column>
+        <kendo-grid-column field="assigned" title="Assigned">
+        </kendo-grid-column>
+        <kendo-grid-column field="thour" title="task Hour">
+        </kendo-grid-column>
+        <kendo-grid-column field="per" title="Percentage">
+        </kendo-grid-column>
+        <kendo-grid-column field="sdate" title="Start Date">
+        </kendo-grid-column>
+        <kendo-grid-column field="edate" title="End Date">
+        </kendo-grid-column>
+        <kendo-grid-column field="priority" title="Priority">
+        </kendo-grid-column>
+      </kendo-grid>
+      <!-- Add Task End -->
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="taskAdd" role="dialog" aria-labelledby="taskAddLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form>
+      <div [formGroup]="editForm" class="modal-content">
+        <div class="modal-header p-2 pl-3">
+          <h5 class="modal-title" id="taskAddLabel">Edit Task/Subtask</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="form-label">Title</label>
+                <input type="text" kendoTextBox class="w-100" formControlName="projectName">
+                <div
+                  *ngIf="editForm.get('projectName').invalid && (editForm.get('projectName').dirty || editForm.get('projectName').touched)">
+                  <small class="form-text text-danger" *ngIf="editForm.get('projectName').errors.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="w-100" kendoTextArea formControlName="description"></textarea>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="trackTitle=='Risk'">
+              <div class="form-group">
+                <label class="form-label">Risk Type</label>
+                <input type="text" kendoTextBox class="w-100" formControlName="risktype">
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="trackTitle=='Risk'">
+              <div class="form-group">
+                <label class="form-label">Risk Impact</label>
+                <input type="text" kendoTextBox class="w-100" formControlName="riskimpact">
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="trackTitle=='Risk'">
+              <div class="form-group">
+                <label class="form-label">Risk Probability</label>
+                <input type="text" kendoTextBox class="w-100" formControlName="riskprobability">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <kendo-datepicker class="w-100" formControlName="startDate">
+                </kendo-datepicker>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <kendo-datepicker class="w-100" formControlName="endDate"></kendo-datepicker>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="form-label">Planned Hours</label>
+                <input type="number" kendoTextBox placeholder="HH:MM" class="w-100"
+                  formControlName="projectBudgetHours">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label class="form-label">Total Spent Hours</label>
+                <input type="number" kendoTextBox placeholder="HH:MM" class="w-100"
+                  formControlName="reportedHoursCache">
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="trackTitle=='Risk'">
+              <div class="form-group">
+                <label class="form-label">Status</label>
+                <kendo-dropdownlist [data]="projectStatusId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+                  [valueField]="'id'" class="w-100" formControlName="projectStatusId"></kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-4" *ngIf="trackTitle != 'Risk'">
+
+              <div class="form-group">
+                <label class="form-label">Milestone<br /></label>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="milestoneP">
+                  <label class="custom-control-label" for="customCheck1"></label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" hidden>
+              <div class="form-group">
+                <label class="form-label">Training Caption</label>
+                <input type="text" kendoTextBox class="w-100">
+              </div>
+            </div>
+            <div class="col-md-6" hidden>
+              <div class="form-group">
+                <label class="form-label">Training Caption</label>
+                <input type="text" kendoTextBox class="w-100">
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Worked Hours</label>
+                <input type="time" kendoTextBox class="w-100">
+              </div>
+            </div> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Percentage</label>
+                <input type="number" kendoTextBox class="w-100" formControlName="percentCompleted">
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+              </div>
+              <span class="pointer text-primary text-undeline">
+                <i class="fa fa-graduation-cap mr-1"></i>Training Link
+              </span>
+            </div>
+          </div>
+
+          <!-- User add model start here -->
+          <div class="modal fade" id="useradd" tabindex="-1" role="dialog" aria-labelledby="useraddTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog" role="document">
+              <app-addusermodal></app-addusermodal>
+            </div>
+          </div>
+          <!-- User add model end here -->
+
+        </div>
+        <div class="modal-footer p-2">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" *ngIf="flag_add" class="btn btn-sm btn-primary" (click)="saveEditTask()">Save
+            Task</button>
+          <!-- <button type="button" *ngIf="flag_add" class="btn btn-sm btn-primary" (click)="saveEditSubTask()">Save
+            Task</button> -->
+          <button type="button" *ngIf="!flag_add" class="btn btn-sm btn-primary" [disabled]="!editForm.valid"
+            (click)="saveSubTask()">Save
+            Task</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- 
+  <div class="modal fade" id="userAddSubTask" role="dialog" aria-labelledby="useraddTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog" role="document">
+      <app-addusermodal (output)="output()" [createNew]="true" (sendUser)="sendUser($event)"></app-addusermodal>
+    </div>
+  </div> -->
+
+  <!-- Risk Modal -->
+  <!-- <div class="modal fade" id="riskmodal" role="dialog" aria-labelledby="riskmodalLabel" aria-hidden="true">
+    <app-riskmodal></app-riskmodal>
+  </div> -->

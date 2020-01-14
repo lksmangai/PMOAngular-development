@@ -1,0 +1,28 @@
+.mt-minus {
+  margin-top: -4px;
+}
+.colorinput-color {
+  border-radius: 50%;
+}
+.modal-dialog-scrollable.modal-body {
+  overflow-y: auto;
+}
+.modal-dialog-scrollable {
+  display: -ms-flexbox;
+  display: flex;
+  max-height: calc(100%-1rem);
+}
+@media (min-width: 576px) {
+  .modal-dialog-scrollable {
+    max-height: calc(100%-3.5rem) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal.fade.modal-dialog {
+    transition: none;
+  }
+}
+
+.remo-brd {
+  border: 0px solid rgba(0, 40, 100, 0.12) !important;
+}

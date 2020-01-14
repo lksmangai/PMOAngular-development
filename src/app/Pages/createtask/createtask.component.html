@@ -1,0 +1,158 @@
+<!-- <div class="modal fade" id="useradd3" role="dialog" aria-labelledby="useraddTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <app-addusermodal></app-addusermodal>
+  </div>
+</div> -->
+
+<div class="container">
+  <h3>Create Task</h3>
+  <div class="row" [formGroup]="myForm">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label">Title</label>
+        <input type="text" kendoTextBox class="w-100" formControlName="projectName" />
+        <div *ngIf="
+            myForm.get('projectName').invalid &&
+            (myForm.get('projectName').dirty ||
+              myForm.get('projectName').touched)
+          ">
+          <small class="form-text text-danger" *ngIf="myForm.get('projectName').errors.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Start Date</label>
+        <kendo-datepicker class="w-100" formControlName="startDate">
+        </kendo-datepicker>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Due Date</label>
+        <kendo-datepicker class="w-100" formControlName="endDate"></kendo-datepicker>
+      </div>
+    </div>
+
+    <div class="col-md-4" *ngIf="trackTitle == 'Risk'">
+      <div class="form-group">
+        <label class="form-label">Risk Type</label>
+        <input type="text" kendoTextBox class="w-100" formControlName="risktype" />
+        <div *ngIf="
+                    myForm.get('risktype').invalid &&
+                    (myForm.get('risktype').dirty ||
+                      myForm.get('risktype').touched)
+                  ">
+          <small class="form-text text-danger" *ngIf="myForm.get('risktype').errors.required">
+            This field is required.
+          </small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" *ngIf="trackTitle == 'Risk'">
+      <div class="form-group">
+        <label class="form-label">Risk Impact</label>
+        <input type="text" kendoTextBox class="w-100" formControlName="riskimpact" />
+      </div>
+    </div>
+    <div class="col-md-4" *ngIf="trackTitle == 'Risk'">
+      <div class="form-group">
+        <label class="form-label">Risk Probability</label>
+        <input type="text" kendoTextBox class="w-100" formControlName="riskprobability" />
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label">Planned Hours</label>
+        <input type="number" placeholder="HH:MM" kendoTextBox class="w-100" formControlName="projectBudgetHours" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label">Total Spent Hours</label>
+        <input type="number" placeholder="HH:MM" kendoTextBox class="w-100" formControlName="reportedHoursCache" />
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <kendo-dropdownlist [data]="projectStatusId" class="w-100" [valuePrimitive]="true" [textField]="'name'"
+          [valueField]="'id'" class="w-100" formControlName="projectStatusId"></kendo-dropdownlist>
+      </div>
+    </div> -->
+    <div class="col-md-4" *ngIf="trackTitle != 'Risk'">
+      <div class="form-group">
+        <label class="form-label">Milestone<br /></label>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="milestoneP">
+          <label class="custom-control-label" for="customCheck1"></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" hidden>
+      <div class="form-group">
+        <label class="form-label">Training Caption</label>
+        <input type="text" kendoTextBox class="w-100" />
+      </div>
+    </div>
+    <div class="col-md-6" hidden>
+      <div class="form-group">
+        <label class="form-label">Training Caption</label>
+        <input type="text" kendoTextBox class="w-100" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Worked Hours</label>
+        <input type="number" placeholder="HH:MM" kendoTextBox class="w-100" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="form-label">Percentage</label>
+        <input type="number" kendoTextBox class="w-100" formControlName="percentCompleted" />
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="w-100" kendoTextArea formControlName="description"></textarea>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <!-- <label class="form-label">Add user</label>
+
+        <div class="ml-auto text-muted">
+          <div class="avatar-list avatar-list-stacked pointer">
+            <span class="avatar border-dashed mr-3 bg-transparent pointer dropdown-toggle" (click)="openUserModal()"
+              data-toggle="dropdown"><i class="fe fe-plus"></i></span>
+            <div class="dropdown-menu allow-focus p-0">
+              <app-addusermodal></app-addusermodal>
+            </div>
+          </div>
+        </div>
+      </div> -->
+        <span class="pointer text-primary text-undeline">
+          <i class="fa fa-graduation-cap mr-1"></i>Training Link
+        </span>
+      </div>
+    </div>
+    <div class="d-block border-top w-100 p-2" style="
+          bottom: 0 !important;
+          position: absolute;
+          right: 0;
+      ">
+      <div class="float-right">
+        <button type="button" class="btn btn-sm btn-secondary" (click)="close()">Close</button>
+        <button type="button" class="btn btn-sm btn-primary" [disabled]="!myForm.valid" data-dismiss="modal"
+          (click)="taskSave()">Save
+          Task</button>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,272 @@
+<div class="main-wrapper">
+  <div id="overlay">
+    <div id="mySidenav" class="sidenav">
+      <a class="closebtn" (click)="closerisk()"><i class="fe fe-arrow-right"></i></a>
+      <app-riskmodal (projectRefresh)="projectRefresh($event)"
+      [updateProject]="updateProject"></app-riskmodal>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 col-lg-3">
+        <div class="card p-3 o-border">
+          <div class="number-circle circle-orange">{{ totalRiskCount }}</div>
+          <h4 class="text-center mb-0">Total Risk</h4>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="card p-3 g-border">
+          <div class="number-circle circle-yellow">{{ openRiskCount }}</div>
+          <h4 class="text-center mb-0">Open Risks</h4>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="card p-3 y-border">
+          <div class="number-circle circle-green">{{ closedRiskCount }}</div>
+          <h4 class="text-center mb-0">Closed Risks</h4>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="card p-3 r-border">
+          <div class="number-circle circle-red">0</div>
+          <h4 class="text-center mb-0">Other Risk</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <h4 class="main-header float-left">Risk</h4>
+      </div>
+      <div class="col-md-6">
+        <div class="">
+          <div class="d-flex justify-content-end mb-2 mr-0">
+            <label class="custom-switch mt-1 mr-4">
+              <input type="checkbox" (change)="checkboxChange($event)" name="option" value="2"
+                class="custom-switch-input" />
+              <span class="custom-switch-indicator mr-2 "></span>
+              <span *ngIf="isChecked">All Projects</span>
+              <span *ngIf="!isChecked">My Projects</span>
+            </label>
+            <button class="btn btn-primary btn-sm" (click)="openrisk()">
+              <i class="fa fa-plus mr-1" aria-hidden="true"></i>Add Risk
+            </button>
+            <div>
+              <nav class="navbar-expand-lg">
+                <div class="collapse navbar-collapse" id="navbarContent">
+                  <ul class="navbar-nav">
+                    <li class="nav-item dropdown p-0">
+                      <button class="btn btn-warning text-dark ml-3" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Filter">
+                        <i class="fe fe-filter"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right p-2 allow-focus">
+                        <h4 class="text-primary">Filter</h4>
+                        <hr />
+                        <form class="accordion" id="accordionExample" [formGroup]="filterForm">
+                          <div class="form-group mb-2">
+                            <label class="form-label">Project Manager</label>
+                            <kendo-dropdownlist [data]="projectManagers" [filterable]="true" [textField]="'fullName'"
+                              [valueField]="'id'" class="w-100" formControlName="filterLeadId"
+                              [defaultItem]="defaultItem">
+                            </kendo-dropdownlist>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">2019 Theme</label>
+                            <kendo-dropdownlist [data]="projectTheme" [valuePrimitive]="true" [textField]="'name'"
+                              [valueField]="'id'" class="w-100" formControlName="projectTheme">
+                            </kendo-dropdownlist>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Project Vertical</label>
+                            <kendo-dropdownlist [data]="projectVertical" class="w-100" [valuePrimitive]="true"
+                              [textField]="'name'" [valueField]="'id'" class="w-100" formControlName="projectVertical">
+                            </kendo-dropdownlist>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Project Type</label>
+                            <kendo-dropdownlist [data]="projectTypeId" class="w-100" [valuePrimitive]="true"
+                              [textField]="'name'" [valueField]="'id'" class="w-100" formControlName="projectTypeId">
+                            </kendo-dropdownlist>
+                          </div>
+                          <!-- <div class="form-group">
+                                                  <label class="form-label">Start Date</label>
+                                                  <kendo-datepicker [(value)]="startDate" class="w-100" formControlName="startDate">
+                                                  </kendo-datepicker>
+                                                </div> -->
+                          <!-- <div class="form-group">
+                                                  <label class="form-label">End Date</label>
+                                                  <kendo-datepicker [(value)]="endDate" class="w-100" formControlName="endDate">
+                                                  </kendo-datepicker>
+                                                </div> -->
+                          <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="" formControlName="startDate" id=""
+                              class="form-control form-control-sm" [(value)]="startDate">
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="" formControlName="endDate" id=""
+                              class="form-control form-control-sm" [(value)]="endDate">
+                          </div>
+                          <button class="btn btn-block btn-primary btn-sm" (click)="applyFilter()">Apply Filter</button>
+                          <div class="mt-2">
+                            <span><i class="fe fe-save mr-1"></i>Save Filter</span>
+                            <span class="float-right" (click)=resetFilter()><i class="fe fe-refresh-ccw mr-1"></i>Reset
+                              Filter</span>
+                          </div>
+                        </form>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <!-- <h5>Total Risk</h5>
+        <kendo-grid [data]="gridView" (pageChange)="pageChange($event)" [height]="200" [selectable]="true" class="mb-4">
+          <kendo-grid-checkbox-column showSelectAll="true" [width]="50"></kendo-grid-checkbox-column>
+          <kendo-grid-column field="title" title="Task Title" [width]="300">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span class="text-primary">{{ dataItem.title }}</span>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="project" title="Project"></kendo-grid-column>
+          <kendo-grid-column field="desc" title="Description" [width]="250"></kendo-grid-column>
+          <kendo-grid-column field="type" title="Type"> </kendo-grid-column>
+          <kendo-grid-column field="impact" title="Impact"></kendo-grid-column>
+          <kendo-grid-column field="probability" title="Probability"></kendo-grid-column>
+          <kendo-grid-column field="priority" title="Priority">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <div class="priority bg-red mr-1"></div>
+              <div class="priority bg-yellow mr-1"></div>
+              <div class="priority bg-green"></div>
+            </ng-template>
+          </kendo-grid-column>
+
+        </kendo-grid> -->
+        <div *ngFor="let riskArray of allRisks; let i = index">
+         <h5>{{verticals[i]}}</h5>
+        <kendo-grid [data]="riskArray" (cellClick)="editClick($event)" (pageChange)="pageChange($event)" [kendoGridSelectBy]="'id'"
+        [selectedKeys]="mySelection"  (selectedKeysChange)="onSelectedKeysChange($event)" [height]="200" [selectable]="{enabled: true, checkboxOnly: true }"
+          class="mb-4">
+          <kendo-grid-checkbox-column showSelectAll="true" [width]="50"></kendo-grid-checkbox-column>
+          <kendo-grid-column field="projectName" title="Project"></kendo-grid-column>
+          <kendo-grid-column field="description" title="Description" [width]="250"></kendo-grid-column>
+          <kendo-grid-column field="risktype" title="Type"> </kendo-grid-column>
+          <kendo-grid-column field="riskimpact" title="Impact"></kendo-grid-column>
+          <kendo-grid-column field="riskprobability" title="Probability"></kendo-grid-column>
+          <kendo-grid-column field="priority" title="Priority">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span *ngIf="dataItem.opportunityPriorityName != null">
+                <span *ngIf="
+                    dataItem.opportunityPriorityName == '3 - High Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '2 - Very High Priority' ||
+                    dataItem.opportunityPriorityName == '1 - Highest Priority'
+                  ">
+                  <!-- <span class="tag tag-rounded high">High</span> -->
+                  <div class="priority bg-red"></div>
+                </span>
+                <span *ngIf="
+                    dataItem.opportunityPriorityName ==
+                      '4 - Medium High Priority' ||
+                    dataItem.opportunityPriorityName == '5 - Medium Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '6 - Medium Low Priority'
+                  ">
+                  <!-- <span class="tag tag-rounded medium">Medium</span> -->
+                  <div class="priority bg-yellow mr-1"></div>
+                </span>
+                <span *ngIf="
+                    dataItem.opportunityPriorityName == '7 - Low Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '8 - Very Low Priority' ||
+                    dataItem.opportunityPriorityName == '9 - Lowest Priority'
+                  ">
+                  <!-- <span class="tag tag-rounded low">Low</span> -->
+                  <div class="priority bg-green mr-1"></div>
+                </span>
+              </span>
+              <!-- <div class="priority bg-red mr-1"></div> -->
+              <!-- <div class="priority bg-yellow mr-1"></div> -->
+              <!-- <div class="priority bg-green"></div> --> 
+            </ng-template>
+          </kendo-grid-column>
+        </kendo-grid>
+        <!-- <h5>Task Risk</h5>
+        <kendo-grid [data]="allRisks[1]" (pageChange)="pageChange($event)" [height]="200" [selectable]="true" class="mb-4">
+          <kendo-grid-checkbox-column showSelectAll="true" [width]="50"></kendo-grid-checkbox-column>
+          <kendo-grid-column field="projectName" title="Project"></kendo-grid-column>
+          <kendo-grid-column field="description" title="Description" [width]="250"></kendo-grid-column>
+          <kendo-grid-column field="risktype" title="Type"> </kendo-grid-column>
+          <kendo-grid-column field="riskimpact" title="Impact"></kendo-grid-column>
+          <kendo-grid-column field="riskprobability" title="Probability"></kendo-grid-column>
+          <kendo-grid-column field="priority" title="Priority">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span *ngIf="dataItem.opportunityPriorityName != null">
+                <span *ngIf="
+                    dataItem.opportunityPriorityName == '3 - High Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '2 - Very High Priority' ||
+                    dataItem.opportunityPriorityName == '1 - Highest Priority'
+                  ">
+                   <span class="tag tag-rounded high">High</span>
+                  <div class="priority bg-green"></div>
+                </span>
+                <span *ngIf="
+                    dataItem.opportunityPriorityName ==
+                      '4 - Medium High Priority' ||
+                    dataItem.opportunityPriorityName == '5 - Medium Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '6 - Medium Low Priority'
+                  ">
+                  <span class="tag tag-rounded medium">Medium</span>
+                  <div class="priority bg-yellow mr-1"></div>
+                </span>
+                <span *ngIf="
+                    dataItem.opportunityPriorityName == '7 - Low Priority' ||
+                    dataItem.opportunityPriorityName ==
+                      '8 - Very Low Priority' ||
+                    dataItem.opportunityPriorityName == '9 - Lowest Priority'
+                  ">
+                  <span class="tag tag-rounded low">Low</span>
+                  <div class="priority bg-red mr-1"></div>
+                </span>
+              </span>
+              <div class="priority bg-red mr-1"></div>
+              <div class="priority bg-yellow mr-1"></div>
+              <div class="priority bg-green"></div>
+            </ng-template>
+          </kendo-grid-column>
+        </kendo-grid>
+        <h5>Other Risk</h5> -->
+        <!-- <kendo-grid [data]="gridView" (pageChange)="pageChange($event)" [height]="200" [selectable]="true" class="mb-4">
+          <kendo-grid-checkbox-column showSelectAll="true" [width]="50"></kendo-grid-checkbox-column>
+          <kendo-grid-column field="project" title="Project"></kendo-grid-column>
+          <kendo-grid-column field="desc" title="Description" [width]="250"></kendo-grid-column>
+          <kendo-grid-column field="type" title="Type"> </kendo-grid-column>
+          <kendo-grid-column field="impact" title="Impact"></kendo-grid-column>
+          <kendo-grid-column field="probability" title="Probability"></kendo-grid-column>
+          <kendo-grid-column field="priority" title="Priority">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <div class="priority bg-red mr-1"></div>
+              
+            </ng-template>
+          </kendo-grid-column>
+
+        </kendo-grid> -->
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="riskcreate" role="dialog" aria-labelledby="createprojectLabel" aria-hidden="true">
+  <app-riskmodal></app-riskmodal>
+</div> -->

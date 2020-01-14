@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="68" height="68" viewBox="0 0 68 68">
+  <g id="Ring_Chart7" data-name="Ring Chart7" transform="translate(41 43)">
+    <path id="Path_3593" data-name="Path 3593" d="M-7-41A34,34,0,0,1,27-7,34,34,0,0,1-7,27,34,34,0,0,1-41-7,34,34,0,0,1-7-41m0,7.463A26.537,26.537,0,0,0-33.537-7,26.537,26.537,0,0,0-7,19.537,26.537,26.537,0,0,0,19.537-7,26.537,26.537,0,0,0-7-33.537Z" transform="translate(0 -2)" fill="#a3a1fb"/>
+    <text id="_40" data-name="40" transform="translate(-16.155 -1)" font-size="20" font-family="SourceSansPro-Semibold, Source Sans Pro" font-weight="600"><tspan x="-10.26" y="0">40</tspan></text>
+    <text id="hrs" transform="translate(5.845 -2)" font-size="15" font-family="SourceSansPro-Light, Source Sans Pro" font-weight="300"><tspan x="-9.375" y="0">hrs</tspan></text>
+  </g>
+</svg>

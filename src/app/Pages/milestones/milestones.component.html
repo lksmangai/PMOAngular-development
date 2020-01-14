@@ -1,0 +1,308 @@
+<div class="main-wrapper">
+  <div class="container">
+    <!-- <button class="btn btn-primary float-right mb-4" (click)="openmile()">
+      Add Milestones
+    </button> -->
+    <p data-toggle="collapse" data-target="#addtask" class="pointer text-primary"><i class="fa fa-plus mr-2"></i>Add
+      Milestone</p>
+    <div class="collapse show" id="addtask">
+      <div class="card" [formGroup]="myForm">
+        <div class="card-body" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Milestone Title</label>
+                <input type="text" class="w-100" kendoTextBox formControlName="projectName">
+                <div
+                  *ngIf="myForm.get('projectName').invalid && (myForm.get('projectName').dirty || myForm.get('projectName').touched)">
+                  <small class="form-text text-danger" *ngIf="myForm.get('projectName').errors.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Start Date</label>
+                <kendo-datepicker class="w-100" [(value)]="startDate" formControlName="startDate"></kendo-datepicker>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Due Date</label>
+                <kendo-datepicker class="w-100" [(value)]="endDate" formControlName="endDate"></kendo-datepicker>
+              </div>
+            </div>
+            <!-- <div class="col-md-2">
+          <div class="form-group">
+            <label class="form-label">Task Type</label>
+            <kendo-dropdownlist class="w-100" [data]="projectTypeId" [filterable]="true" [valuePrimitive]="true"
+              [textField]="'name'" [valueField]="'id'" (filterChange)="handleFilter($event)"
+              formControlName="projectTypeId">
+            </kendo-dropdownlist>
+
+          </div>
+        </div> -->
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">&nbsp;</label>
+                <div class="avatar-list avatar-list-stacked">
+                  <!-- <span class="avatar avatar-purple">PR</span>
+              <span class="avatar avatar-blue">WH</span>
+              <span class="avatar avatar-azure">MR</span>
+              <span class="avatar avatar-indigo">DB</span>
+              <span class="avatar avatar-red">PP</span>
+              <span class="avatar">+8</span> -->
+                  <span class="avatar avatar-gray float-right" data-toggle="dropdown" (click)="openUserModal()"><i
+                      class="fe fe-user-plus"></i></span>
+                  <div class="dropdown-menu p-0 allow-focus">
+                    <app-addusermodal></app-addusermodal>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">Est. Hour</label>
+                <input type="number" class="w-100" placeholder="HH:MM" kendoTextBox
+                  formControlName="projectBudgetHours">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label class="form-label">&nbsp;</label>
+                <button class="btn mr-2 btn-sm btn-primary" [disabled]="!myForm.valid"
+                  (click)="saveMilestone()">Save</button>
+                <button class="btn btn-sm btn-secondary" data-toggle="collapse" data-target="#addtask">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div id="overlay">
+      <div id="mySidenav" class="sidenav">
+        <a class="closebtn" (click)="closemile()"><i class="fe fe-arrow-right"></i></a>
+        <div class="container">
+          <h3>Add Milestones</h3>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="form-label">Project name</label>
+                <input type="text" class="w-100" kendoTextBox />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Number</label>
+                <input type="text" class="w-100" kendoTextBox />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Manager</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Status</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Theme</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Vertical</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Project Type</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <kendo-daterange>
+                <div class="flex-row d-flex">
+                  <div class="w-50 pr-3">
+                    <label class="form-label">Start Date</label>
+                    <kendo-dateinput class="w-100" kendoDateRangeStartInput></kendo-dateinput>
+                  </div>
+
+                  <div class="w-50">
+                    <label class="form-label">Delivery Date</label>
+                    <kendo-dateinput class="w-100" kendoDateRangeEndInput>
+                    </kendo-dateinput>
+                  </div>
+                </div>
+              </kendo-daterange>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label">Priority</label>
+                <kendo-dropdownlist class="w-100" [data]="listItems">
+                </kendo-dropdownlist>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-block border-top w-100 p-2" style="
+            bottom: 0 !important;
+            position: absolute;
+            right: 0;
+        ">
+          <div class="float-right">
+            <span>
+              <button type="button" class="btn btn-secondary mr-3" (click)="closemile()">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary mr-3">
+                Save
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- <div class="card">
+      <div class="card-header pointer" data-toggle="collapse" data-target="#mile">
+        <h4 class="mb-0"><i class="fa fa-plus mr-2"></i>Add Milestones</h4>
+      </div>
+      <div class="card-body collapse" id="mile" style="background-color: #f9f9f9 !important; padding: 0.5rem 1.5rem !important;">
+          <div class="row">
+              <div class="col-md-2">
+                <div class="form-group">
+                <label class="form-label">Task Title</label>
+                <kendo-dropdownlist
+                    class="w-100"
+                    [data]="data"
+                    [filterable]="true"
+                    [textField]="'text'"
+                    [valueField]="'value'"
+                    (filterChange)="handleFilter($event)"
+                >
+                </kendo-dropdownlist>
+                </div>
+              </div>
+              <div class="col-md-2">
+                  <div class="form-group">
+                  <label class="form-label">Due Date</label>
+                  <kendo-datepicker
+                  [(value)]="value"
+              ></kendo-datepicker>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                    <label class="form-label">Task Type</label>
+                    <kendo-dropdownlist
+                    class="w-100"
+                    [data]="data"
+                    [filterable]="true"
+                    [textField]="'text'"
+                    [valueField]="'value'"
+                    (filterChange)="handleFilter($event)"
+                >
+                </kendo-dropdownlist>
+                    </div>
+                  </div>
+                  <div class="col-md-2">
+                      <div class="form-group">
+                      <label class="form-label">Assign To</label>
+                      <kendo-dropdownlist
+                      class="w-100"
+                      [data]="data"
+                      [filterable]="true"
+                      [textField]="'text'"
+                      [valueField]="'value'"
+                      (filterChange)="handleFilter($event)"
+                  >
+                  </kendo-dropdownlist>
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                        <label class="form-label">Est. Hour</label>
+                        <input type="text" class="w-100" kendoTextBox>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="mt-6">
+                          <button class="btn mr-2 btn-sm btn-primary">Save</button>
+                          <button class="btn btn-sm btn-secondary">Cancel</button>
+                        </div>
+  
+                      </div>
+            </div>
+      </div>
+    </div> -->
+    <div class="card">
+      <div class="card-body">
+        <h4 class="mb-1">Complete</h4>
+        <kendo-grid [data]="completeMilestone" [height]="230">
+          <kendo-grid-column field="projectName" title="Task List">
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="Due Date">
+          </kendo-grid-column>
+
+          <kendo-grid-column field="projectStatusName" title="Status">
+          </kendo-grid-column>
+        </kendo-grid>
+        <h4 class="m-1 mt-3">Pending</h4>
+        <kendo-grid [data]="pendingMilestone" [height]="230">
+          <kendo-grid-column field="projectName" title="Task List">
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="Due Date">
+          </kendo-grid-column>
+
+          <kendo-grid-column field="projectStatusName" title="Status">
+          </kendo-grid-column>
+        </kendo-grid>
+        <h4 class="m-1 mt-3">Current Week</h4>
+        <kendo-grid [data]="currentWeekMilestone" [height]="230">
+          <kendo-grid-column field="projectName" title="Task List">
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="Due Date">
+          </kendo-grid-column>
+
+          <kendo-grid-column field="projectStatusName" title="Status">
+          </kendo-grid-column>
+        </kendo-grid>
+        <h4 class="m-1 mt-3">Next Week</h4>
+        <kendo-grid [data]="nextWeekMilestone" [height]="230">
+          <kendo-grid-column field="projectName" title="Task List">
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="Due Date">
+          </kendo-grid-column>
+
+          <kendo-grid-column field="projectStatusName" title="Status">
+          </kendo-grid-column>
+        </kendo-grid>
+        <h4 class="m-1 mt-3">Future</h4>
+        <kendo-grid [data]="futureMilestones" [height]="230">
+          <kendo-grid-column field="projectName" title="Task List">
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="Due Date">
+          </kendo-grid-column>
+
+          <kendo-grid-column field="projectStatusName" title="Status">
+          </kendo-grid-column>
+        </kendo-grid>
+      </div>
+    </div>
+  </div>
+</div>

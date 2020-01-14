@@ -1,0 +1,46 @@
+/* Risk navbar start */
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #E7762C;
+    background-color: #fff;
+    border-color: #CED4DA #CED4DA #fff #CED4DA;
+    font-size: 16px;
+    font-weight: 600;
+}
+.tab-content > .active{
+    border-left:1px solid #CED4DA;
+    border-right:1px solid #CED4DA;
+    border-bottom:1px solid #CED4DA;
+}
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #9AA0AC;
+}
+.nav-tabs {
+    border-bottom: 1px solid #CED4DA;
+}
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+
+/* Risk navbar end */
+.avatar-list-stacked .avatar {
+    margin-right: -.5em;
+    transition: all 0.3s;
+    }
+    .avatar-list-stacked .avatar:hover {
+        margin-right: .3em;
+    }
+
+    @media (min-width: 576px)
+{
+    .modal-dialog {
+    max-width: 1000px;
+    margin: 1.75rem auto;
+}
+}

@@ -1,0 +1,641 @@
+<!-- <div class="modal fade" id="useradd" role="dialog" aria-labelledby="useraddTitle" aria-hidden="true">
+  <div ng-controller="firstCtrl" class="modal-dialog modal-dialog" role="document">
+    <app-addusermodal *ngIf="selectedProject" callfrom="modal" [projects]="selectedProject"
+      (userRefresh)="userRefresh($event)">
+    </app-addusermodal>
+  </div>
+</div> -->
+
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '1px',fullScreenBackdrop: true,primaryColour:'#EEA127',secondaryColour:'#EEA127',tertiaryColour:'#EEA127',backdropBackgroundColour:'rgba(255, 255, 255, 0.6)' }">
+</ngx-loading>
+
+<div class="modal fade" id="createtask" role="dialog" aria-labelledby="createtaskLabel" aria-hidden="true">
+  <app-createtask *ngIf="selectedProject" [selectedTask]="selectedProject" [trackTitle]="trackTitle"></app-createtask>
+</div>
+
+<div class="main-wrapper container">
+
+  <div class="row no-gutters">
+
+    <div class="col-lg-6 col-sm-6">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link" id="all-tab" data-toggle="tab" (click)="tabOnClick('all')" role="tab"
+            aria-controls="all" aria-selected="false">
+            <i class="fa fa-list mr-1"></i>All ({{projects.length}})</a>
+          <a class="nav-item nav-link active" id="started-tab" data-toggle="tab" (click)="tabOnClick('started')"
+            role="tab" aria-controls="started" aria-selected="true">
+            <i class="fa fa-star-o mr-1"></i>In Progress ({{inProgressProjects.length}})</a>
+          <a class="nav-item nav-link" id="hold-tab" data-toggle="tab" (click)="tabOnClick('onHold')" role="tab"
+            aria-controls="hold" aria-selected="false">
+            <i class="fa fa-stop-circle-o mr-1"></i>On Hold ({{onHoldProjects.length}})</a>
+          <a class="nav-item nav-link" id="complete-tab" data-toggle="tab" (click)="tabOnClick('complete')" role="tab"
+            aria-controls="complete" aria-selected="false">
+            <i class="fa fa-check-circle-o mr-1"></i>Completed ({{completedProjects.length}})</a>
+        </div>
+      </nav>
+    </div>
+    <div class="col-lg-6 col-sm-6">
+
+      <div class="d-flex flex-row justify-content-end">
+
+        <div class="mr-4">
+          <!-- <label class="form-label">&nbsp; </label> -->
+          <!-- <input type="radio" (change)="checkboxChange($event)" name="option"  > -->
+          <label class="custom-switch mt-3 pointer ">
+            <input type="checkbox" (change)="checkboxChange($event)" name="option" value="2"
+              class="custom-switch-input">
+            <span class="custom-switch-indicator mr-2"></span>
+            <span *ngIf="isChecked">All Projects</span>
+            <span *ngIf="!isChecked">My Projects</span>
+          </label>
+        </div>
+        <div>
+          <a class="nav-link p-1 text-center btn btn-icon btn-light mr-1" (click)="setviewtype('card')"
+            [ngClass]="{'active':viewtype == 'card'}">
+            <i class="fa fa-th" data-toggle="tooltip" title="" data-original-title="Card-View"></i>
+          </a>
+        </div>
+        <div class="mr-4">
+          <a class="nav-link p-1 text-center btn btn-icon btn-light mr-1" [ngClass]="{'active':viewtype == 'grid'}"
+            (click)="setviewtype('grid')">
+            <i class="fa fa-reorder" data-toggle="tooltip" title="" data-original-title="Grid-View"></i></a>
+        </div>
+        <div>
+          <button class="btn btn-primary mr-4" [disabled]="!createprojectFlag"
+            title="Only Project Lead can Create Project" (click)="createProject()"><i class="fa fa-plus mr-2"></i>
+            Create Project</button>
+        </div>
+        <div>
+          <nav class="navbar-expand-lg ">
+            <div class="collapse navbar-collapse" id="navbarContent">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown p-0">
+                  <button class="btn btn-warning text-dark" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" title="Filter"><i class="fe fe-filter"></i></button>
+                  <div class="dropdown-menu dropdown-menu-right p-2 allow-focus">
+                    <h4 class="text-primary">Filter</h4>
+                    <hr>
+                    <form class="accordion" id="accordionExample" [formGroup]="filterForm">
+                      <div class="form-group mb-2">
+                        <label class="form-label">Project Manager</label>
+                        <kendo-dropdownlist [data]="projectManagers" [filterable]="true" [textField]="'fullName'"
+                          [valueField]="'id'" class="w-100" formControlName="filterLeadId" [defaultItem]="defaultItem">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">2019 Theme</label>
+                        <kendo-dropdownlist [data]="projectTheme" [valuePrimitive]="true" [textField]="'name'"
+                          [valueField]="'id'" class="w-100" formControlName="projectTheme">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Project Vertical</label>
+                        <kendo-dropdownlist [data]="projectVertical" class="w-100" [valuePrimitive]="true"
+                          [textField]="'name'" [valueField]="'id'" class="w-100" formControlName="projectVertical">
+                        </kendo-dropdownlist>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Project Type</label>
+                        <kendo-dropdownlist [data]="projectTypeId" class="w-100" [valuePrimitive]="true"
+                          [textField]="'name'" [valueField]="'id'" class="w-100" formControlName="projectTypeId">
+                        </kendo-dropdownlist>
+                      </div>
+                      <!-- <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <kendo-datepicker [(value)]="startDate" class="w-100" formControlName="startDate">
+                        </kendo-datepicker>
+                      </div> -->
+                      <!-- <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <kendo-datepicker [(value)]="endDate" class="w-100" formControlName="endDate">
+                        </kendo-datepicker>
+                      </div> -->
+                      <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" name="" formControlName="startDate" id=""
+                          class="form-control form-control-sm" [(value)]="startDate">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="date" name="" formControlName="endDate" id="" class="form-control form-control-sm"
+                          [(value)]="endDate">
+                      </div>
+                      <button class="btn btn-block btn-primary btn-sm" (click)="applyFilter()">Apply Filter</button>
+                      <div class="mt-2">
+                        <span><i class="fe fe-save mr-1"></i>Save Filter</span>
+                        <span class="float-right" (click)=resetFilter()><i class="fe fe-refresh-ccw mr-1"></i>Reset
+                          Filter</span>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div id="overlay">
+        <div id="mySidenav" class="sidenav">
+          <a class="closebtn" (click)="closeproject()"><i class="fe fe-arrow-right"></i></a>
+          <!-- <a class="btn btn-primary" (click)="closeNav()"><i class="fe fe-x"></i></a> -->
+          <app-createproject *ngIf="projectFlag" (projectRefresh)="projectRefresh($event)"
+            [updateProject]="updateProject">
+          </app-createproject>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="tab-content pl-0 pt-4" id="nav-tabContent">
+
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+
+      <div class="row">
+
+        <div *ngFor="let project of projectdata" style="min-height: 0px" class="col-sm-6 col-md-4  pointer">
+          <!-- Project Card -->
+          <div class="card project-bdr-shadow table-padding mb-5" *ngIf="viewtype == 'card'">
+            <div class="card-status bg-primary"></div>
+            <div class="card-body p-3" data-toggle="tooltip" data-placement="left">
+              <!-- Title/desc and dropdown section -->
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="badge badge-secondary" data-toggle="tooltip" data-placement="bottom" title=""
+                  data-original-title="Total Hours">
+                  <span class="sr-only">Total Hours</span>
+                  <i class="fa fa-hourglass-half mr-1"></i>{{project.projectBudgetHours|time}}</div>
+
+                <div class="dropdown p-0">
+                  <button type="button" class="btn btn-icon btn-light" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-arrow"></div>
+
+                  <ul class="dropdown-menu dropdown-menu-right dropdown-content allow-focus">
+                    <li> <a class="dropdown-item" (click)="task(project)"><i class="fe fe-file-text mr-2"
+                          aria-hidden="true"></i>Task</a>
+                    </li>
+                    <!-- <li> <a class="dropdown-item" (click)="createRisk(project)"><i class="fe fe-zap mr-2"
+                          aria-hidden="true" data-toggle="modal"></i>Risk</a></li> -->
+                    <li> <a class="dropdown-item" [routerLink]="['/milestones', project.id]"> <i
+                          class=" fe fe-trending-up mr-2" aria-hidden="true"></i>Milestone</a>
+                    </li>
+                    <!-- <li> <a class="dropdown-item" routerLink="/mettingnotes"><i class="fe fe-edit mr-2"
+                          aria-hidden="true"></i>Metting Notes</a></li>
+                    <li> <a class="dropdown-item"><i class="fe fe-trash-2 mr-2" aria-hidden="true"></i>Remove Me form
+                        This Project</a></li> -->
+                    <li> <a class="dropdown-item" (click)="editProject(project)"><i class="fe fe-edit-3 mr-2"
+                          aria-hidden="true"></i>Edit</a> </li>
+                    <li> <a class="dropdown-item" (click)="confirmDeletion(project)"><i class="fe fe-edit-3 mr-2"
+                          aria-hidden="true"></i>Delete Project</a> </li>
+                    <li> <a class="dropdown-item" (click)="cloneProject(project)"><i class="fa fa-clone mr-2"
+                          aria-hidden="true"></i>Clone Project</a> </li>
+                    <!-- <li> <a class="dropdown-item"><i class="fe fe-check-circle mr-2" aria-hidden="true"></i>Complete</a>
+                    </li> -->
+                  </ul>
+                </div>
+
+              </div>
+
+              <div class="row gutters-xs">
+                <!-- (click)="editProject(project)" -->
+                <div class="col text-truncate" (click)="task(project)">
+                  <a *ngIf="project.projectName==null" class="project-createtitle" title="Project Name">Project Name</a>
+                  <a class="project-createtitle" title="{{project.projectName}}">{{project.projectName}}</a>
+                  <p *ngIf="project.projectLeadId" class="mb-0 project-desc">
+                    {{project.projectLeadFirstName}} {{project.projectLeadLastName}} </p>
+                  <p *ngIf="!project.projectLeadId" class="mb-0 project-desc">Project Manager</p>
+
+                  <p *ngIf="project.projectTypeName" class="card-subtitle text-muted mt-1">
+                    {{project.projectTypeName}}</p>
+                  <p *ngIf="!project.projectTypeName" class="card-subtitle text-muted mt-1">Project Type</p>
+                </div>
+
+                <span class="col-auto">
+
+                  <div class="d-block p-tag">
+                    <span *ngIf="project.opportunityPriorityName==null">
+                    </span>
+                    <span *ngIf="project.opportunityPriorityName!=null">
+                      <span
+                        *ngIf="project.opportunityPriorityName=='3 - High Priority' || project.opportunityPriorityName== '2 - Very High Priority' || project.opportunityPriorityName=='1 - Highest Priority'">
+                        <img src="assets/img/high.svg" width="60" alt="">
+                      </span>
+                      <span
+                        *ngIf="project.opportunityPriorityName=='4 - Medium High Priority' || project.opportunityPriorityName== '5 - Medium Priority' || project.opportunityPriorityName=='6 - Medium Low Priority'">
+                        <img src="assets/img/medium.svg" width="60" alt="">
+                      </span>
+                      <span
+                        *ngIf="project.opportunityPriorityName=='7 - Low Priority' || project.opportunityPriorityName=='8 - Very Low Priority' || project.opportunityPriorityName=='9 - Lowest Priority'">
+                        <img src="assets/img/low.svg" width="60" alt="">
+                      </span>
+                    </span>
+
+                  </div>
+                  <!-- <div class="d-block p-tag">
+                    <img src="assets/img/high.svg" width="60" alt="">
+                  </div> -->
+                </span>
+              </div>
+
+              <!-- <div>
+                <img src="assets/img/project-status.svg" class="w-100" alt="">
+              </div> -->
+              <div class="circle-progress">
+                <div class="progress" rel="tooltip" *ngIf="project.percentCompleted==null">
+                  <div class="progress-bar" style="width:0%">
+                    <span class="percentcircle">0%</span>
+                  </div>
+                </div>
+                <div class="progress" rel="tooltip" *ngIf="project.percentCompleted!=null">
+                  <div class="progress-bar" [style.width]="(project.percentCompleted/100)*100 + '%'">
+                    <span class="percentcircle">{{project.percentCompleted|number : '1.0-0'}}%</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="mt-4">
+                <p class="project-type mb-2 ">Last activity: <span class="text-primary font-weight-bold">Today 3.24
+                    PM</span></p>
+              </div> -->
+
+              <div>
+                <p class="project-type mb-2">Users: <span
+                    class="text-primary font-weight-bold">{{project.allocationTable.length}}</span></p>
+
+                <div class="row no-gutters avatar-list avatar-list-stacked">
+                  <div class="col-10">
+                    <span *ngFor="let a of project.allocationTable; let i = index">
+                      <span *ngIf="i<5" class="avatar avatar-sm avatar-hover" data-toggle="tooltip" data-placement="top"
+                        title="{{a.employee_first_name}}{{a.employee_last_name}}"
+                        [ngClass]="{'avatar-purple': (i+1)%5==0,'avatar-blue': (i+1)%5==1, 'avatar-azure': (i+1)%5==2, 'avatar-indigo': (i+1)%5==3, 'avatar-red': (i+1)%5==4}">
+                        {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                      </span>
+                    </span>
+                    <div class="dropdown show">
+                      <span *ngIf="project.allocationTable.length>5" class="pointer avatar avatar-sm avatar-tile"
+                        data-toggle="dropdown">+{{project.allocationTable.length-5}}</span>
+                      <div class="dropdown-menu dropdown-menu-right allow-focus" x-placement="bottom-end">
+                        <p class="mb-0 ml-3 text-muted">More user</p>
+                        <ul class="list-unstyled mb-0 o-auto p-3" style="max-height: 320px;">
+                          <li *ngFor="let a of project.allocationTable; let i = index">
+                            <div class="d-flex align-items-center" *ngIf="i>4">
+                              <div class="avatar mr-3"
+                                [ngClass]="{'avatar-blue': (i+1)%14==0,'avatar-azure': (i+1)%14==1, 'avatar-indigo': (i+1)%14==2, 'avatar-purple': (i+1)%14==3, 'avatar-pink': (i+1)%14==4, 'avatar-red': (i+1)%14==5, 'avatar-orange': (i+1)%14==6, 'avatar-yellow': (i+1)%14==7, 'avatar-lime': (i+1)%14==8, 'avatar-green': (i+1)%14==9, 'avatar-teal': (i+1)%14==10, 'avatar-cyan': (i+1)%14==11, 'avatar-gray': (i+1)%14==12, 'avatar-gray-dark': (i+1)%14==13}">
+                                <p class="font-weight-normal mb-0">
+                                  {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                                </p>
+                              </div>
+                              <div class="mb-3 text-truncate">
+                                <span>{{a.employee_first_name}} {{a.employee_last_name}}</span>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="col-1">
+                      <span class="pointer avatar avatar-sm avatar-tile" (click)="openUserModal(project)"><i
+                          class="fe fe-user-plus"></i></span>
+                    </div>
+                    <!-- <div class="dropdown-menu p-0">
+                      <app-addusermodal *ngIf="isSelected(project.id)" (userRefresh)="userRefresh($event)">
+                      </app-addusermodal>
+                    </div> -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="d-flex justify-content-between bg-lightgray p-1">
+              <div class="p-2 text-center">
+                <div class="form-group mb-0">
+                  <label class="text-muted mb-0">Start Date</label>
+                  <span *ngIf="project.startDate">
+                    <p class="mb-0 form-label">{{project.startDate| date : 'mediumDate'}}</p>
+                  </span>
+                  <span *ngIf="!project.startDate">
+                    <p class="mb-0 form-label">- -</p>
+                  </span>
+                </div>
+              </div>
+              <div class="p-2 text-center">
+                <div class="form-group mb-0">
+                  <label class="text-muted mb-0">End Date</label>
+                  <span *ngIf="project.startDate">
+                    <p class="mb-0 form-label">{{project.endDate| date : 'mediumDate'}}</p>
+                  </span>
+                  <span *ngIf="!project.startDate">
+                    <p class="mb-0 form-label">- -</p>
+                  </span>
+                </div>
+              </div>
+              <div class="p-2 text-center">
+                <div class="form-group mb-0">
+                  <label class="text-muted mb-0">Task</label>
+                  <span *ngIf="project.count" (click)="task(project)">
+                    <p class="mb-0 form-label"><a class="text-success">{{project.count-1}}</a></p>
+                  </span>
+                  <span *ngIf="!project.count">
+                    <p class="mb-0 form-label">- -</p>
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="p-2 text-center">
+                <span class="form-label mt-3">Task-02</span>
+              </div> -->
+            </div>
+
+            <!-- <div class="p-4">
+              <div class="justify-content-between d-flex">
+                <div class="col-sm-3 col-md-3 text-center pointer border-right" (click)="task(project)">
+                  <img src="assets/img/task.svg" width="40px" height="40px" alt="">
+                  <div class="text-tile">Task</div>
+                </div>
+                <div class="col-sm-3 col-md-3 text-center pointer border-right">
+                  <img src="assets/img/meetingNotes.svg" width="40px" height="40px" alt="">
+                  <div class="text-tile">Notes</div>
+                </div>
+                <div class="col-sm-3 col-md-3 text-center pointer border-right" data-toggle="modal"
+                  (click)="createRisk(project)">
+                  <img src="assets/img/risk.svg" width="40px" height="40px" alt="">
+                  <div class="text-tile">Risk</div>
+                </div>
+                <div class="col-sm-3 col-md-3 text-center pointer" data-toggle="modal" data-target="#createproject">
+                  <img src="assets/img/projects.svg" width="40px" height="40px" alt="">
+                  <div class="text-tile">Projects</div>
+                </div>
+              </div>
+            </div> -->
+            <!-- <div clas
+              s="d-flex justify-content-between p-3">
+              
+              <div class="border-right text-center p-3 ">
+                <img src="assets/img/task.svg" width="40" alt="">
+                <div>Task</div>
+              </div>
+              <div class="border-right text-center p-3 ">
+                  <img src="assets/img/resource.svg" width="40" alt="">
+                  <div>Resource</div>
+              </div>
+              <div class="border-right text-center p-3">
+                  <img src="assets/img/risk.svg" width="40" alt="">
+                  <div>Risk</div>
+              </div>
+              <div class=" text-center p-3">
+                  <img src="assets/img/projects.svg" width="40" alt="">
+                  <div>Projects</div>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="viewtype == 'grid' && projectdata.length!=0">
+        <kendo-grid [data]="projectdata" class="w-100" style="height: 700px;">
+          <kendo-grid-column field="projectName" title="Name" width="250">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span class="t-hover">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <div>
+                      <h4 class="text-primary mb-0">
+                        {{dataItem.projectName}}
+                      </h4>
+                    </div>
+                    <!-- <small class="d-block">{{dataItem.projectLeadFirstName}} {{dataItem.projectLeadLastName}}</small>
+                    <small class="text-muted">0 hrs/0 mins</small> -->
+                  </div>
+                </div>
+              </span>
+              <!-- <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Action
+                    </button>-->
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column title="Assigned" width="200">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <div class="avatar-list avatar-list-stacked">
+                <span *ngFor="let a of dataItem.allocationTable; let i = index">
+                  <span *ngIf="i<5" class="avatar avatar-sm avatar-hover" data-toggle="tooltip" data-placement="top"
+                    title="{{a.employee_first_name}}{{a.employee_last_name}}"
+                    [ngClass]="{'avatar-purple': (i+1)%5==0,'avatar-blue': (i+1)%5==1, 'avatar-azure': (i+1)%5==2, 'avatar-indigo': (i+1)%5==3, 'avatar-red': (i+1)%5==4}">
+                    {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                  </span>
+                </span>
+
+                <span class="avatar avatar-hover avatar-sm avatar-gray dropdown-toggle"
+                  *ngIf="dataItem.allocationTable.length>5"
+                  data-toggle="dropdown">+{{dataItem.allocationTable.length-5}}</span>
+                <div class="dropdown-menu dropdown-menu-right allow-focus" x-placement="bottom-end">
+                  <p class="mb-0 ml-3 text-muted">More user</p>
+                  <ul class="list-unstyled mb-0 o-auto p-3" style="max-height: 320px;">
+                    <li *ngFor="let a of dataItem.allocationTable; let i = index">
+                      <div class="d-flex align-items-center" *ngIf="i>4">
+                        <div class="avatar mr-3"
+                          [ngClass]="{'avatar-blue': (i+1)%14==0,'avatar-azure': (i+1)%14==1, 'avatar-indigo': (i+1)%14==2, 'avatar-purple': (i+1)%14==3, 'avatar-pink': (i+1)%14==4, 'avatar-red': (i+1)%14==5, 'avatar-orange': (i+1)%14==6, 'avatar-yellow': (i+1)%14==7, 'avatar-lime': (i+1)%14==8, 'avatar-green': (i+1)%14==9, 'avatar-teal': (i+1)%14==10, 'avatar-cyan': (i+1)%14==11, 'avatar-gray': (i+1)%14==12, 'avatar-gray-dark': (i+1)%14==13}">
+                          <p class="font-weight-normal mb-0">
+                            {{a.employee_first_name|initial}}{{a.employee_last_name|initial}}
+                          </p>
+                        </div>
+                        <div class="mb-3 text-truncate">
+                          <span>{{a.employee_first_name}} {{a.employee_last_name}}</span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <span>
+                  <span class="pointer avatar avatar-sm avatar-tile float-right" (click)="openUserModal(dataItem)"><i
+                      class="fe fe-user-plus"></i></span>
+                  <!-- <div class="dropdown-menu p-0" aria-labelledby="user" href="#user">
+                    <app-addusermodal *ngIf="isSelected(dataItem.id)" (userRefresh)="userRefresh($event)">
+                    </app-addusermodal>
+                  </div> -->
+                </span>
+              </div>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="startDate" title="Start Date" width="100">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{ dataItem.startDate| date : 'mediumDate'}}
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="endDate" title="End Date" width="100">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              {{ dataItem.endDate| date : 'mediumDate'}}
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column title="Task" width="60">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <a class="pointer mb-0 text-success" (click)="task(dataItem)">{{dataItem.count-1}}</a>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column title="Percentage(%)" width="160">
+            <ng-template kendoGridCellTemplate let-dataItem>
+              <span *ngIf="dataItem.percentCompleted">
+                <span>{{dataItem.percentCompleted|number : '1.0-0'}}%</span>
+                <div class="progress progress-xs">
+                  <div class="progress-bar bg-yellow" role="progressbar"
+                    [style.width]="(dataItem.percentCompleted/100)*100 + '%'" aria-valuenow="42" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+                </div>
+              </span>
+              <span *ngIf="!dataItem.percentCompleted">
+                <span>0%</span>
+                <div class="progress progress-xs">
+                  <div class="progress-bar bg-yellow" role="progressbar" style="width:0%" aria-valuenow="42"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </span>
+            </ng-template>
+          </kendo-grid-column>
+
+          <kendo-grid-column title="Priority" width="70">
+            <!-- <ng-template kendoGridCellTemplate>
+          
+              <span class="tag tag-rounded medium">
+                Medium</span>
+             
+            </ng-template> -->
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="id">
+              <span *ngIf="dataItem.opportunityPriorityName!=null">
+                <span
+                  *ngIf="dataItem.opportunityPriorityName=='3 - High Priority' || dataItem.opportunityPriorityName== '2 - Very High Priority' || dataItem.opportunityPriorityName=='1 - Highest Priority'">
+                  <span class="tag tag-rounded high">High</span>
+                </span>
+                <span
+                  *ngIf="dataItem.opportunityPriorityName=='4 - Medium High Priority' || dataItem.opportunityPriorityName== '5 - Medium Priority' || dataItem.opportunityPriorityName=='6 - Medium Low Priority'">
+                  <span class="tag tag-rounded medium">Medium</span>
+                </span>
+                <span
+                  *ngIf="dataItem.opportunityPriorityName=='7 - Low Priority' || dataItem.opportunityPriorityName=='8 - Very Low Priority' || dataItem.opportunityPriorityName=='9 - Lowest Priority'">
+                  <span class="tag tag-rounded low">Low</span>
+                </span>
+              </span>
+            </ng-template>
+          </kendo-grid-column>
+          <kendo-grid-column field="document" title="" [width]="30" [filterable]="false"
+            [headerStyle]="{'background-color': 'rgb(246, 246, 246)','color': '#000','line-height': '1em'}"
+            [style]="{'background-color': 'rgb(246, 246, 246)','color': '#000'}">
+            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="identifier">
+              <div class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-ellipsis-v mr-2 text-muted"></i>
+              </div>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="task(dataItem)"><i class="fe fe-file-text mr-2"
+                    aria-hidden="true"></i>Task</a>
+
+                <!-- <a class="dropdown-item" (click)="createRisk(dataItem)"><i class="fe fe-zap mr-2" aria-hidden="true"
+                    data-toggle="modal"></i>Risk</a> -->
+                <a class="dropdown-item" [routerLink]="['/milestones', dataItem.id]"> <i class=" fe fe-trending-up mr-2"
+                    aria-hidden="true"></i>Milestone</a>
+
+                <!-- <a class="dropdown-item" routerLink="/mettingnotes"><i class="fe fe-edit mr-2"
+                    aria-hidden="true"></i>Metting Notes</a>
+                <a class="dropdown-item"><i class="fe fe-trash-2 mr-2" aria-hidden="true"></i>Remove Me form
+                  This Project</a> -->
+                <a class="dropdown-item" (click)="editProject(dataItem)"><i class="fe fe-edit-3 mr-2"
+                    aria-hidden="true"></i>Edit</a>
+                <li> <a class="dropdown-item" (click)="confirmDeletion(dataItem)"><i class="fe fe-edit-3 mr-2"
+                      aria-hidden="true"></i>Delete Project</a> </li>
+                <li> <a class="dropdown-item" (click)="cloneProject(dataItem)"><i class="fa fa-clone mr-2"
+                      aria-hidden="true"></i>Clone
+                    Project</a> </li>
+                <!-- <li><a class="dropdown-item"><i class="fe fe-check-circle mr-2" aria-hidden="true"></i>Complete</a></li> -->
+              </div>
+            </ng-template>
+          </kendo-grid-column>
+          <!-- <kendo-grid-column field="projectTheme.name" title="Theme" width="150">
+            </kendo-grid-column>
+            <kendo-grid-column field="projectVertical.name" title="Vertical" width="100">
+            </kendo-grid-column>
+            <kendo-grid-column field="projectTypeId.name" title="Type" width="140">
+            </kendo-grid-column>
+            <kendo-grid-column field="projectBucketId.name" title="Bucket" width="100">
+            </kendo-grid-column>
+            <kendo-grid-column field="projectStatusId.name" title="Status" width="120">
+            </kendo-grid-column>
+            <kendo-grid-column field="opportunityPriorityId.name" title="Priority" width="90">
+              <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="id">
+                <span *ngIf="dataItem.opportunityPriorityId!=null">
+                  <span
+                    *ngIf="dataItem.opportunityPriorityId.name=='3 - High Priority' || dataItem.opportunityPriorityId.name== '2 - Very High Priority' || dataItem.opportunityPriorityId.name=='1 - Highest Priority'">
+                    <span class="tag tag-rounded tag-orange">High</span>
+                  </span>
+                  <span
+                    *ngIf="dataItem.opportunityPriorityId.name=='4 - Medium High Priority' || dataItem.opportunityPriorityId.name== '5 - Medium Priority' || dataItem.opportunityPriorityId.name=='6 - Medium Low Priority'">
+                    <span class="tag tag-rounded tag-yellow">Medium</span>
+                  </span>
+                  <span
+                    *ngIf="dataItem.opportunityPriorityId.name=='7 - Low Priority' || dataItem.opportunityPriorityId.name=='8 - Very Low Priority' || dataItem.opportunityPriorityId.name=='9 - Lowest Priority'">
+                    <span class="tag tag-rounded tag-green">Low</span>
+                  </span>
+                </span>
+              </ng-template>
+            </kendo-grid-column>
+            
+            <kendo-grid-column field="$" title="Tasks" width="220">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <div *ngFor="let task of myTask(dataItem)" class="text-truncate" title="{{task.projectName}}">
+                  <i class="fa fa-circle-o mr-1 small"></i>{{task.projectName}}
+                </div>
+              </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="_" title="Users" width="180">
+              <ng-template kendoGridCellTemplate let-dataItem>
+                <div *ngFor="let allocation of dataItem.allocationTable" class="text-truncate">
+                  {{allocation.employee_first_name}}&nbsp;{{allocation.employee_last_name}}
+                </div>
+              </ng-template>
+            </kendo-grid-column> -->
+        </kendo-grid>
+      </div>
+
+      <ng-container *ngIf="projectdata.length==0 && loading==false">
+        <div class="main-wrapper container">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-center">
+                <h1 style="font-weight: 300;">No Projects Available</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<!-- Delete dialog box -->
+<kendo-dialog title="Please confirm" *ngIf="opened" (close)="close('cancel')" [minWidth]="250" [width]="450">
+  <h3>Are you sure you want to Delete the Project?</h3>
+  <!-- <h3>Sorry, We are working on it...</h3> -->
+
+  <kendo-dialog-actions>
+    <button kendoButton (click)="close('no')">No</button>
+    <button kendoButton (click)="close('yes')" primary="true">Yes</button>
+  </kendo-dialog-actions>
+</kendo-dialog>
+
+<!-- Modal add user -->
+
+<!-- Add USer Modal -->
+<div class="modal fade" id="addduser" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <app-addusermodal [selectedProjectId]="selectedProjectId" *ngIf="selectedProjectId"
+          (userRefresh)="userRefresh($event)">
+        </app-addusermodal>
+      </div>
+    </div>
+  </div>
+</div>
